@@ -5,9 +5,7 @@ export const initialRegisterData = {
     surname: '',
     email: '',
     password: '',
-    passport: '',
-    snils: '',
-    birthDate: ''
+    confirmPassword: ''
 };
 
 export const initialLoginData = {

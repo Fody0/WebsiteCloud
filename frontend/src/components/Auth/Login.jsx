@@ -1,8 +1,25 @@
 import React, { useState } from 'react';
 import { loginUser,initialLoginData } from '../network/User_api';
+import { loginValidationSchema } from '../network/Validation';
+
 
 const Login = () => {
     const [formData, setFormData] = useState(initialLoginData);
+    const [errors, setErrors] = useState({});
+    const validate = async () => {
+        try {
+            await loginValidationSchema.validate(formData, { abortEarly: false });
+            setErrors({});
+            return true;
+        } catch (err) {
+            const formErrors = err.inner.reduce((acc, curr) => {
+                acc[curr.path] = curr.message;
+                return acc;
+            }, {});
+            setErrors(formErrors);
+            return false;
+        }
+    };
 
 
     const handleChange = (e) => {
@@ -11,19 +28,28 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const data = await loginUser(formData);
-            console.log('Успешный вход:', data);
-        } catch (error) {
-            console.error('Ошибка при входе:', error.message);
+        const isValid = await validate();
+        if (isValid) {
+            try {
+                const data = await loginUser(formData);
+                console.log('Логин успешен:', data);
+            } catch (error) {
+                console.error('Ошибка при входе:', error);
+            }
         }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="email" name="email" placeholder="Email" onChange={handleChange} required/>
-            <input type="password" name="password" placeholder="Пароль" onChange={handleChange} required
-            />
+        <form style={{display: 'flex', flexDirection: 'column', gap: '10px', width: '300px', margin: '0 auto'}} onSubmit={handleSubmit}>
+            <input type="email" name="email" placeholder="Email" onChange={handleChange} value={formData.email}/>
+            {errors.email && <div style={{ color: 'red' }}>{errors.email}</div>}
+
+
+
+            <input type="password" name="password" placeholder="Пароль" onChange={handleChange} value={formData.password}/>
+            {errors.password && <div style={{ color: 'red' }}>{errors.password}</div>}
+
+
             <button type="submit">Войти</button>
         </form>
     );

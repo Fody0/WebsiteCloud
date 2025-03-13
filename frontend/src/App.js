@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 
+
 const App = () => {
     return (
         <Router>
