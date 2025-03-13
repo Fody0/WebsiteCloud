@@ -5,7 +5,6 @@ import Kara.CloudCom.Service.StudentService;
 import Kara.CloudCom.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -15,32 +14,32 @@ import java.util.List;
 @AllArgsConstructor
 @Primary
 public class StudentServiceImpl implements StudentService {
-    private final StudentRepository repository;
+    private final StudentRepository rep;
 
     @Override
     public List<Student> findAllStudent() {
-        return repository.findAll();
+        return rep.findAll();
     }
 
     @Override
     public Student saveStudent(Student student) {
-        return repository.save(student);
+        return rep.save(student);
     }
 
     @Override
     public Student findByEmail(String email) {
-        return repository.findByEmail(email);
+        return rep.findByEmail(email);
     }
 
     @Override
     public Student updateStudent(Student student) {
-        return repository.save(student);
+        return rep.save(student);
     }
 
     @Override
     @Transactional
     public void deleteStudent(String email) {
-        repository.deleteByEmail(email);
+        rep.deleteByEmail(email);
 
     }
 }
