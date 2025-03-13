@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { loginUser,initialLoginData } from '../network/User_api';
 import { loginValidationSchema } from '../network/Validation';
+import MyButton from "../UI/button/MyButton";
+import MyInput from "../UI/input/MyInput";
 
 
 const Login = () => {
@@ -41,16 +43,16 @@ const Login = () => {
 
     return (
         <form style={{display: 'flex', flexDirection: 'column', gap: '10px', width: '300px', margin: '0 auto'}} onSubmit={handleSubmit}>
-            <input type="email" name="email" placeholder="Email" onChange={handleChange} value={formData.email}/>
+            <MyInput type="email" name="email" placeholder="Email" onChange={handleChange} value={formData.email}/>
             {errors.email && <div style={{ color: 'red' }}>{errors.email}</div>}
 
 
 
-            <input type="password" name="password" placeholder="Пароль" onChange={handleChange} value={formData.password}/>
+            <MyInput type="password" name="password" placeholder="Пароль" onChange={handleChange} value={formData.password}/>
             {errors.password && <div style={{ color: 'red' }}>{errors.password}</div>}
 
 
-            <button type="submit">Войти</button>
+            <MyButton type="submit">Войти</MyButton>
         </form>
     );
 };
