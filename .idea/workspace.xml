@@ -5,12 +5,117 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="459310be-ff3f-4456-9115-470a7a744774" name="Changes" comment="add validation">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/UI/button/MyButton.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/UI/button/MyButton.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/UI/input/MyInput.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/UI/input/MyInput.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Auth/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Auth/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Auth/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Auth/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/property-expr/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/property-expr/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/property-expr/compiler.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/property-expr/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/property-expr/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/property-expr/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tiny-case/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tiny-case/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tiny-case/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tiny-case/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tiny-case/test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tiny-case/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/License" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/component.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/graph.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/async-return-type.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/asyncify.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/basic.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/camel-case.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/camel-cased-properties-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/camel-cased-properties.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/conditional-except.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/conditional-keys.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/conditional-pick.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/delimiter-case.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/delimiter-cased-properties-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/delimiter-cased-properties.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/entries.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/entry.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/exact.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/except.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/fixed-length-array.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/get.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/has-optional-keys.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/has-required-keys.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/includes.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/internal.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/invariant-of.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/iterable-element.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/join.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/jsonify.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/kebab-case.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/kebab-cased-properties-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/kebab-cased-properties.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/last-array-element.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/literal-to-primitive.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/literal-union.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/merge-exclusive.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/merge.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/multidimensional-array.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/multidimensional-readonly-array.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/mutable.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/numeric.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/observable-like.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/opaque.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/optional-keys-of.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/package-json.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/partial-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/partial-on-undefined-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/pascal-case.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/pascal-cased-properties-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/pascal-cased-properties.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/primitive.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/promisable.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/promise-value.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/readonly-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/readonly-tuple.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/remove-index-signature.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/replace.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/require-all-or-none.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/require-at-least-one.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/require-exactly-one.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/required-keys-of.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/schema.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/screaming-snake-case.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/set-non-nullable.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/set-optional.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/set-required.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/set-return-type.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/simplify.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/snake-case.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/snake-cased-properties-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/snake-cased-properties.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/split.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/spread.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/string-key-of.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/stringified.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/trim.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/tsconfig-json.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/typed-array.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/union-to-intersection.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/value-of.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/writable.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/yup/LICENSE.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/yup/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/yup/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/yup/index.esm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/yup/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/yup/package.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +203,7 @@
       <workItem from="1741851812025" duration="674000" />
       <workItem from="1741855589033" duration="1855000" />
       <workItem from="1741866534538" duration="140000" />
+      <workItem from="1741866781946" duration="1383000" />
     </task>
     <task id="LOCAL-00001" summary="add validation">
       <option name="closed" value="true" />
@@ -107,7 +213,23 @@
       <option name="project" value="LOCAL" />
       <updated>1741852335744</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add validation">
+      <option name="closed" value="true" />
+      <created>1741866983550</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1741866983550</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add validation">
+      <option name="closed" value="true" />
+      <created>1741873818406</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1741873818406</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
