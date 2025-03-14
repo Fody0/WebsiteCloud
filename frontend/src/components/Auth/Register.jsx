@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { registerUser, initialRegisterData } from '../network/User_api';
 import {registerValidationSchema} from "../network/Validation";
+import MyButton from "../UI/button/MyButton";
+import MyInput from "../UI/input/MyInput";
 
 
 const Register = () => {
@@ -42,28 +44,28 @@ const Register = () => {
 
     return (
         <form style={{display: 'flex', flexDirection: 'column', gap: '10px', width: '300px', margin: '0 auto'}} onSubmit={handleSubmit}>
-                <input type="text" name="name" placeholder="Имя" onChange={handleChange} value={formData.name}/>
+                <MyInput type="text" name="name" placeholder="Имя" onChange={handleChange} value={formData.name}/>
             {errors.name && <div style={{ color: 'red' }}>{errors.name}</div>}
 
-                <input type="text" name="surname" placeholder="Фамилия" onChange={handleChange} value={formData.surname}/>
+                <MyInput type="text" name="surname" placeholder="Фамилия" onChange={handleChange} value={formData.surname}/>
             {errors.surname && <div style={{ color: 'red' }}>{errors.surname}</div>}
 
 
-                <input type="email" name="email" placeholder="Email" onChange={handleChange} value={formData.email}/>
+                <MyInput type="email" name="email" placeholder="Email" onChange={handleChange} value={formData.email}/>
             {errors.email && <div style={{ color: 'red' }}>{errors.email}</div>}
 
 
 
-                <input type="password" name="password" placeholder="Пароль" onChange={handleChange} value={formData.password}/>
+                <MyInput type="password" name="password" placeholder="Пароль" onChange={handleChange} value={formData.password}/>
             {errors.password && <div style={{ color: 'red' }}>{errors.password}</div>}
 
 
 
-                <input type="password" name="confirmPassword" placeholder="Повторите пароль" onChange={handleChange} value={formData.confirmPassword}/>
+                <MyInput type="password" name="confirmPassword" placeholder="Повторите пароль" onChange={handleChange} value={formData.confirmPassword}/>
             {errors.confirmPassword && <div style={{ color: 'red' }}>{errors.confirmPassword}</div>}
 
 
-            <button type="submit">Зарегистрироваться</button>
+            <MyButton type="submit">Зарегистрироваться</MyButton>
         </form>
     );
 };

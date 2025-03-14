@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="459310be-ff3f-4456-9115-470a7a744774" name="Changes" comment="add validation">
+      <change beforePath="$PROJECT_DIR$/node_modules/property-expr/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/property-expr/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/property-expr/compiler.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/property-expr/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/property-expr/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/property-expr/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tiny-case/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tiny-case/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tiny-case/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tiny-case/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tiny-case/test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tiny-case/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/.travis.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/License" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/component.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/graph.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/toposort/test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/async-return-type.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/asyncify.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/basic.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/camel-case.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/camel-cased-properties-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/camel-cased-properties.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/conditional-except.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/conditional-keys.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/conditional-pick.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/delimiter-case.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/delimiter-cased-properties-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/delimiter-cased-properties.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/entries.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/entry.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/exact.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/except.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/fixed-length-array.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/get.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/has-optional-keys.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/has-required-keys.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/includes.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/internal.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/invariant-of.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/iterable-element.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/join.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/jsonify.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/kebab-case.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/kebab-cased-properties-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/kebab-cased-properties.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/last-array-element.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/literal-to-primitive.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/literal-union.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/merge-exclusive.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/merge.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/multidimensional-array.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/multidimensional-readonly-array.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/mutable.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/numeric.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/observable-like.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/opaque.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/optional-keys-of.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/package-json.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/partial-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/partial-on-undefined-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/pascal-case.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/pascal-cased-properties-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/pascal-cased-properties.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/primitive.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/promisable.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/promise-value.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/readonly-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/readonly-tuple.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/remove-index-signature.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/replace.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/require-all-or-none.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/require-at-least-one.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/require-exactly-one.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/required-keys-of.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/schema.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/screaming-snake-case.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/set-non-nullable.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/set-optional.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/set-required.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/set-return-type.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/simplify.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/snake-case.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/snake-cased-properties-deep.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/snake-cased-properties.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/split.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/spread.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/string-key-of.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/stringified.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/trim.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/tsconfig-json.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/typed-array.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/union-to-intersection.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/value-of.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/type-fest/source/writable.d.ts" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;fatethemachine&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Fody0/WebsiteCloud.git&quot;,
+    &quot;accountId&quot;: &quot;59a3e6f1-046f-4e5d-9141-e03b37531941&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2u5IxckGGlXbK7SQCbikRJhdZ2f" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/UsersangaeOneDriveDesktop/.WebStorm/config/node/versions/22.14.0&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\WebStorm 2024.3.2.1\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager" selected="npm.npm start">
+    <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
+      <method v="2" />
+    </configuration>
+    <configuration name="npm start" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-WS-243.23654.157" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="459310be-ff3f-4456-9115-470a7a744774" name="Changes" comment="" />
+      <created>1741532255922</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1741532255922</updated>
+      <workItem from="1741532257120" duration="3845000" />
+      <workItem from="1741708508190" duration="1714000" />
+      <workItem from="1741772970897" duration="120000" />
+      <workItem from="1741789537878" duration="7415000" />
+      <workItem from="1741851812025" duration="674000" />
+      <workItem from="1741855589033" duration="1855000" />
+      <workItem from="1741866534538" duration="140000" />
+      <workItem from="1741866781946" duration="1621000" />
+    </task>
+    <task id="LOCAL-00001" summary="add validation">
+      <option name="closed" value="true" />
+      <created>1741852335744</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1741852335744</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add validation">
+      <option name="closed" value="true" />
+      <created>1741866983550</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1741866983550</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add validation">
+      <option name="closed" value="true" />
+      <created>1741873818406</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1741873818406</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add validation">
+      <option name="closed" value="true" />
+      <created>1741873976592</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1741873976592</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add validation">
+      <option name="closed" value="true" />
+      <created>1741873990267</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1741873990268</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="add validation" />
+  </component>
+</project>
