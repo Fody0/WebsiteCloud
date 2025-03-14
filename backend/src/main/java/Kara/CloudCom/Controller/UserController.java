@@ -1,10 +1,12 @@
 package Kara.CloudCom.Controller;
 
-import Kara.CloudCom.Model.Requests.EmailRequest;
+import Kara.CloudCom.Model.Requests.LoginRequest;
 import Kara.CloudCom.Model.User;
 import Kara.CloudCom.Service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class UserController {
         //TODO
         return service_a.findAllUser();
     }
+
     @PostMapping("save_user")
     @CrossOrigin(origins = "http://localhost:3000/",
             methods = {RequestMethod.POST}, allowCredentials = "true")
@@ -28,9 +31,14 @@ public class UserController {
         return "user successfully saved";
     }
 
-    @GetMapping("/email")
-    public User findUserByIEmail(@RequestBody EmailRequest email) {
-        return service_a.findByEmail(email.getEmail());
+    @GetMapping("/login")
+    public User loginUser(@RequestBody LoginRequest email) {
+        User foundUser = service_a.findByEmail(email.getEmail());
+        if (foundUser != null && foundUser.getPassword().equals(email.getPassword())) {
+            return foundUser;
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password");
+        }
     }
 //    @PutMapping("update_User")
 //    public User updateUser(User User) {
