@@ -30,15 +30,19 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const isValid = await validate();
+
         if (isValid) {
+            const { confirmPassword, ...dataToSend } = formData;
+
             try {
-                const data = await registerUser(formData);
+                const data = await registerUser(dataToSend);
                 console.log('Регистрация успешна:', data);
             } catch (error) {
                 console.error('Ошибка при регистрации:', error);
             }
         }
     };
+
 
     return (
         <form style={{display: 'flex', flexDirection: 'column', gap: '10px', width: '300px', margin: '0 auto'}} onSubmit={handleSubmit}>
