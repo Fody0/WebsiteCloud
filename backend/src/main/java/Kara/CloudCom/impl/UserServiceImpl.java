@@ -32,14 +32,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User confirmUserPassword(String password) {
+        return null;
+    }
+
+//    @Override
+//    public User confirmUserPassword(User user) {
+//        return repository.getPassword()
+//                .equals(password);
+//    }
+
+    @Override
     public User updateUser(User User) {
         return repository.save(User);
     }
+
 
     @Override
     @Transactional
     public void deleteUser(String email) {
         repository.deleteByEmail(email);
 
+    }
+
+    @Override
+    public boolean checkPassword(User foundUser, String password) {
+        return false;
     }
 }

@@ -10,6 +10,8 @@ public interface UserService {
     List<User> findAllUser();
     User saveUser(User User);
     User findByEmail(String email);
+    User confirmUserPassword(String password);
     User updateUser(User User);
     void deleteUser(String email);
+    boolean checkPassword(User foundUser, String password);
 }
