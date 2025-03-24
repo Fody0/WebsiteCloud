@@ -10,6 +10,7 @@ import java.time.Period;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue
     private Long id;

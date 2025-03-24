@@ -14,4 +14,5 @@ public interface UserService {
     User updateUser(User User);
     void deleteUser(String email);
     boolean checkPassword(User foundUser, String password);
+
 }
