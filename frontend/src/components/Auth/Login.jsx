@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { loginUser,initialLoginData } from '../network/User_api';
+import { loginUser, initialLoginData } from '../network/User_api';
 import { loginValidationSchema } from '../network/Validation';
-import {useNavigate} from "react-router-dom";
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/index.css';
 import { Form, Button, Container } from 'react-bootstrap';
-
 
 const Login = () => {
     const [formData, setFormData] = useState(initialLoginData);
@@ -76,9 +75,15 @@ const Login = () => {
                     </Form.Control.Feedback>
                 </Form.Group>
 
-                <Button variant="primary" type="submit" className="w-100">
+                <Button variant="primary" type="submit" className="w-100 mb-3">
                     Войти
                 </Button>
+
+                <div className="text-center">
+                    <Link to="/forgot-password" className="text-decoration-none">
+                        Забыли пароль?
+                    </Link>
+                </div>
             </Form>
         </Container>
     );
