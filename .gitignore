@@ -1,1 +1,4 @@
 .idea
+backend/.idea
+frontend/.idea
+init.sql

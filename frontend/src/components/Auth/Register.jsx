@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
+import {useNavigate} from "react-router-dom";
 import { registerUser, initialRegisterData } from '../network/User_api';
 import {registerValidationSchema} from "../network/Validation";
-import MyButton from "../UI/button/MyButton";
-import MyInput from "../UI/input/MyInput";
-
+import { Form, Button, Container } from 'react-bootstrap';
 
 const Register = () => {
     const [formData, setFormData] = useState(initialRegisterData);
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     const validate = async () => {
         try {
@@ -28,14 +28,17 @@ const Register = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const isValid = await validate();
+
         if (isValid) {
+            const { confirmPassword, ...dataToSend } = formData;
+
             try {
-                const data = await registerUser(formData);
+                const data = await registerUser(dataToSend);
                 console.log('Регистрация успешна:', data);
+                navigate('/login');
             } catch (error) {
                 console.error('Ошибка при регистрации:', error);
             }
@@ -43,30 +46,84 @@ const Register = () => {
     };
 
     return (
-        <form style={{display: 'flex', flexDirection: 'column', gap: '10px', width: '300px', margin: '0 auto'}} onSubmit={handleSubmit}>
-                <MyInput type="text" name="name" placeholder="Имя" onChange={handleChange} value={formData.name}/>
-            {errors.name && <div style={{ color: 'red' }}>{errors.name}</div>}
+        <Container className="mt-5" style={{ maxWidth: '400px' }}>
+            <h2 className="text-center mb-4">Регистрация</h2>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3">
+                    <Form.Control
+                        type="text"
+                        name="name"
+                        placeholder="Имя"
+                        onChange={handleChange}
+                        value={formData.name}
+                        isInvalid={!!errors.name}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.name}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
-                <MyInput type="text" name="surname" placeholder="Фамилия" onChange={handleChange} value={formData.surname}/>
-            {errors.surname && <div style={{ color: 'red' }}>{errors.surname}</div>}
+                <Form.Group className="mb-3">
+                    <Form.Control
+                        type="text"
+                        name="surname"
+                        placeholder="Фамилия"
+                        onChange={handleChange}
+                        value={formData.surname}
+                        isInvalid={!!errors.surname}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.surname}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
+                <Form.Group className="mb-3">
+                    <Form.Control
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={handleChange}
+                        value={formData.email}
+                        isInvalid={!!errors.email}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.email}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
-                <MyInput type="email" name="email" placeholder="Email" onChange={handleChange} value={formData.email}/>
-            {errors.email && <div style={{ color: 'red' }}>{errors.email}</div>}
+                <Form.Group className="mb-3">
+                    <Form.Control
+                        type="password"
+                        name="password"
+                        placeholder="Пароль"
+                        onChange={handleChange}
+                        value={formData.password}
+                        isInvalid={!!errors.password}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.password}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
+                <Form.Group className="mb-3">
+                    <Form.Control
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Повторите пароль"
+                        onChange={handleChange}
+                        value={formData.confirmPassword}
+                        isInvalid={!!errors.confirmPassword}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.confirmPassword}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
-
-                <MyInput type="password" name="password" placeholder="Пароль" onChange={handleChange} value={formData.password}/>
-            {errors.password && <div style={{ color: 'red' }}>{errors.password}</div>}
-
-
-
-                <MyInput type="password" name="confirmPassword" placeholder="Повторите пароль" onChange={handleChange} value={formData.confirmPassword}/>
-            {errors.confirmPassword && <div style={{ color: 'red' }}>{errors.confirmPassword}</div>}
-
-
-            <MyButton type="submit">Зарегистрироваться</MyButton>
-        </form>
+                <Button variant="primary" type="submit" className="w-100">
+                    Зарегистрироваться
+                </Button>
+            </Form>
+        </Container>
     );
 };
 
