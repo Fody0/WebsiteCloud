@@ -8,6 +8,8 @@ import Error from './components/pages/Error';
 import About from './components/pages/About';
 import Forgot from "./components/Reset/Forgot";
 import Reset from "./components/Reset/Reset";
+import Services from "./components/Services/Services";
+import ServiceForm from "./components/Services/ServiceForm";
 
 
 const App = () => {
@@ -21,6 +23,8 @@ const App = () => {
                 <Route path="/about" element={<About />} />
                 <Route path="/forgot-password" element={<Forgot />} />
                 <Route path="/reset-password" element={<Reset />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/form/:id" element={<ServiceForm />} />
 
             </Routes>
         </Router>

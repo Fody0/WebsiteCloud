@@ -4,8 +4,12 @@ import { loginValidationSchema } from '../network/Validation';
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/index.css';
 import { Form, Button, Container } from 'react-bootstrap';
+import { Navibar } from "../Navbar/Navibar";
 
 const Login = () => {
+   <div>
+       <Navibar/>
+   </div>
     const [formData, setFormData] = useState(initialLoginData);
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
@@ -44,6 +48,9 @@ const Login = () => {
     };
 
     return (
+        <>
+
+                <Navibar />
         <Container className="mt-5" style={{ maxWidth: '400px' }}>
             <h2 className="text-center mb-4">Вход</h2>
             <Form onSubmit={handleSubmit}>
@@ -86,6 +93,7 @@ const Login = () => {
                 </div>
             </Form>
         </Container>
+            </>
     );
 };
 

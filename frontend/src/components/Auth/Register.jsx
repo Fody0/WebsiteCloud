@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import { registerUser, initialRegisterData } from '../network/User_api';
 import {registerValidationSchema} from "../network/Validation";
 import { Form, Button, Container } from 'react-bootstrap';
+import { Navibar } from "../Navbar/Navibar";
 
 const Register = () => {
     const [formData, setFormData] = useState(initialRegisterData);
@@ -46,6 +47,8 @@ const Register = () => {
     };
 
     return (
+        <>
+            <Navibar />
         <Container className="mt-5" style={{ maxWidth: '400px' }}>
             <h2 className="text-center mb-4">Регистрация</h2>
             <Form onSubmit={handleSubmit}>
@@ -124,6 +127,7 @@ const Register = () => {
                 </Button>
             </Form>
         </Container>
+            </>
     );
 };
 

@@ -33,3 +33,25 @@ export const loginValidationSchema = Yup.object({
 
 
 });
+const snilsRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{3} [0-9]{2}$/;
+const passportRegex = /^[0-9]{4} [0-9]{6}$/;
+const insurancePolicyRegex = /^[0-9]{16}$/;
+
+
+export const formValidationSchema = Yup.object({
+    name: Yup.string()
+        .matches(/^[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+$/, 'ФИО должно быть в формате "Иванов Иван Иванович"')
+        .required('ФИО обязательно'),
+
+    snils: Yup.string()
+        .matches(snilsRegex, 'СНИЛС должен быть в формате 123-456-789 00')
+        .required('СНИЛС обязателен'),
+
+    insurancePolicy: Yup.string()
+        .matches(insurancePolicyRegex, 'Страховой полис должен содержать 16 цифр')
+        .required('Страховой полис обязателен'),
+
+    passport: Yup.string()
+        .matches(passportRegex, 'Паспорт должен быть в формате 1234 567890')
+        .required('Паспорт обязателен'),
+});
