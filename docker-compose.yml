@@ -26,11 +26,16 @@ services:
     env_file: ./backend/.env
     container_name: spring_boot_app
     environment:
-      DB_HOST: "db"
+      DB_HOST: postgres_db
+      DB_PORT: 5432
+      DB_NAME: users_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - WebsiteCloudNet
 
