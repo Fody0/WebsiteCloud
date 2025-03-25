@@ -43,4 +43,14 @@ export const loginUser = async (formData) => {
         console.error('Ошибка при входе:', error);
         throw error;
     }
+
+};
+export const forgotPassword = async (email) => {
+    try {
+        const response = await axios.post('/api/forgot-password', { email });
+        return response.data;
+    } catch (error) {
+        console.error('Ошибка при отправке письма для сброса пароля:', error);
+        throw error;
+    }
 };
