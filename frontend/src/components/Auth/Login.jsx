@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { loginUser,initialLoginData } from '../network/User_api';
+import { loginUser, initialLoginData } from '../network/User_api';
 import { loginValidationSchema } from '../network/Validation';
-
+import { useNavigate, Link } from 'react-router-dom';
+import '../styles/index.css';
+import { Form, Button, Container } from 'react-bootstrap';
 
 const Login = () => {
     const [formData, setFormData] = useState(initialLoginData);
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
+
     const validate = async () => {
         try {
             await loginValidationSchema.validate(formData, { abortEarly: false });
@@ -21,7 +25,6 @@ const Login = () => {
         }
     };
 
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -33,6 +36,7 @@ const Login = () => {
             try {
                 const data = await loginUser(formData);
                 console.log('Логин успешен:', data);
+                navigate('/');
             } catch (error) {
                 console.error('Ошибка при входе:', error);
             }
@@ -40,18 +44,48 @@ const Login = () => {
     };
 
     return (
-        <form style={{display: 'flex', flexDirection: 'column', gap: '10px', width: '300px', margin: '0 auto'}} onSubmit={handleSubmit}>
-            <input type="email" name="email" placeholder="Email" onChange={handleChange} value={formData.email}/>
-            {errors.email && <div style={{ color: 'red' }}>{errors.email}</div>}
+        <Container className="mt-5" style={{ maxWidth: '400px' }}>
+            <h2 className="text-center mb-4">Вход</h2>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3">
+                    <Form.Control
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={handleChange}
+                        value={formData.email}
+                        isInvalid={!!errors.email}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.email}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
+                <Form.Group className="mb-3">
+                    <Form.Control
+                        type="password"
+                        name="password"
+                        placeholder="Пароль"
+                        onChange={handleChange}
+                        value={formData.password}
+                        isInvalid={!!errors.password}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.password}
+                    </Form.Control.Feedback>
+                </Form.Group>
 
+                <Button variant="primary" type="submit" className="w-100 mb-3">
+                    Войти
+                </Button>
 
-            <input type="password" name="password" placeholder="Пароль" onChange={handleChange} value={formData.password}/>
-            {errors.password && <div style={{ color: 'red' }}>{errors.password}</div>}
-
-
-            <button type="submit">Войти</button>
-        </form>
+                <div className="text-center">
+                    <Link to="/forgot-password" className="text-decoration-none">
+                        Забыли пароль?
+                    </Link>
+                </div>
+            </Form>
+        </Container>
     );
 };
 

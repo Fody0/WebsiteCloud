@@ -2,6 +2,7 @@ package Kara.CloudCom.Model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -22,7 +23,16 @@ public class User {
 
     @Column(unique = true)
     private String password;
-//    @Transient
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    //    @Transient
 //    private int age;
 
 //    public int getAge() {
