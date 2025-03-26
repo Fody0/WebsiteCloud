@@ -11,6 +11,7 @@ import java.time.Period;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -31,6 +32,9 @@ public class User {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
     //    @Transient
 //    private int age;
 

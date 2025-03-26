@@ -29,14 +29,24 @@ public class InMemoryUserServiceImpl implements UserService {
     public User findByEmail(String email) {
         return repository.findByEmail(email);
     }
+//
+//    @Override
+//    public User updateUser(User User) {
+//        return repository.updateUser(User);
+//    }
+//
+//    @Override
+//    public void deleteUser(String email) {
+//        repository.deleteUser(email);
+//    }
 
-    @Override
-    public User updateUser(User User) {
-        return repository.updateUser(User);
-    }
-
-    @Override
-    public void deleteUser(String email) {
-        repository.deleteUser(email);
-    }
+//    @Override
+//    public User confirmUserPassword(String password) {
+//        return null;
+//    }
+//
+//    @Override
+//    public boolean checkPassword(User foundUser, String password) {
+//        return false;
+//    }
 }
