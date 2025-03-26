@@ -13,11 +13,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/Users")
-@AllArgsConstructor
 public class UserController {
 
     private final UserService service_a;
     private final BCryptPasswordEncoder passwordEncoder;
+
+    public UserController(UserService service_a) {
+        passwordEncoder = new BCryptPasswordEncoder();
+        service_a = null;
+        this.service_a = service_a;
+    }
 
     @GetMapping()
     public List<User> findAllUser() {

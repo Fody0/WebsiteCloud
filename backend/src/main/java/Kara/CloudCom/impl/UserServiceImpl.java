@@ -34,15 +34,15 @@ public class UserServiceImpl implements UserService {
         return repository.findByEmail(email);
     }
 
-    @Override
-    public User updateUser(User User) {
-        return repository.save(User);
-    }
-
-    @Override
-    @Transactional
-    public void deleteUser(String email) {
-        repository.deleteByEmail(email);
-
-    }
+//    @Override
+//    public User updateUser(User User) {
+//        return repository.save(User);
+//    }
+//
+//    @Override
+//    @Transactional
+//    public void deleteUser(String email) {
+//        repository.deleteByEmail(email);
+//
+//    }
 }
