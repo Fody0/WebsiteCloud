@@ -9,13 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class InMemoryUserServiceImpl implements UserService {
     private final InMemoryUserDAO repository;
-
-    public InMemoryUserServiceImpl(InMemoryUserDAO repository) {
-        this.repository = repository;
-    }
-
     @Override
     public List<User> findAllUser() {
         return repository.findAllUser();
@@ -29,24 +25,24 @@ public class InMemoryUserServiceImpl implements UserService {
     public User findByEmail(String email) {
         return repository.findByEmail(email);
     }
-//
-//    @Override
-//    public User updateUser(User User) {
-//        return repository.updateUser(User);
-//    }
-//
-//    @Override
-//    public void deleteUser(String email) {
-//        repository.deleteUser(email);
-//    }
 
-//    @Override
-//    public User confirmUserPassword(String password) {
-//        return null;
-//    }
-//
-//    @Override
-//    public boolean checkPassword(User foundUser, String password) {
-//        return false;
-//    }
+    @Override
+    public User confirmUserPassword(String password) {
+        return null;
+    }
+
+    @Override
+    public User updateUser(User User) {
+        return repository.updateUser(User);
+    }
+
+    @Override
+    public void deleteUser(String email) {
+        repository.deleteUser(email);
+    }
+
+    @Override
+    public boolean checkPassword(User foundUser, String password) {
+        return false;
+    }
 }
