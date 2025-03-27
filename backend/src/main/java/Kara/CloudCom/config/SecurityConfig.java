@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
 @EnableWebSecurity
@@ -18,27 +17,29 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())  // Отключаем CSRF (для API обычно не нужен)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/Users/save_user", "/api/v1/Users/login").permitAll()  // Разрешаем регистрацию и логин без авторизации
-                        .anyRequest().authenticated()  // Все остальные запросы требуют аутентификации
-                );
-        return http.build();
-    }
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //        http
-//                .csrf(csrf -> csrf.disable())
+//                .csrf(csrf -> csrf.disable())  // Отключаем CSRF (для API обычно не нужен)
 //                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/login", "/register").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .sessionManagement(session -> session
-//                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)  // Теперь будет работать
+//                        .requestMatchers("/api/v1/Users/save_user", "/api/v1/Users/login").permitAll()  // Разрешаем регистрацию и логин без авторизации
+//                        .anyRequest().authenticated()  // Все остальные запросы требуют аутентификации
 //                );
 //        return http.build();
 //    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())  // Отключение CSRF
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login", "/register", "/public/**").permitAll()  // Открытые эндпоинты
+                        .anyRequest().authenticated()  // Остальные требуют авторизации
+                )
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)  // Всегда создавать сессии
+                );
+
+        return http.build();
+    }
 }

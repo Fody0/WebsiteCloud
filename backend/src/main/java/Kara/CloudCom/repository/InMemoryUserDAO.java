@@ -44,4 +44,8 @@ public class InMemoryUserDAO {
             UserS.remove(User);
         }
     }
+
+    public boolean checkPassword(User user, String password) {
+        return user.getPassword().equals(password); // В реальном приложении используйте хеширование паролей!
+    }
 }

@@ -11,13 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 @Primary
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
-
-    public UserServiceImpl(UserRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public List<User> findAllUser() {
@@ -34,15 +31,32 @@ public class UserServiceImpl implements UserService {
         return repository.findByEmail(email);
     }
 
+    @Override
+    public User confirmUserPassword(String password) {
+        return null;
+    }
+
 //    @Override
-//    public User updateUser(User User) {
-//        return repository.save(User);
+//    public User confirmUserPassword(User user) {
+//        return repository.getPassword()
+//                .equals(password);
 //    }
-//
-//    @Override
-//    @Transactional
-//    public void deleteUser(String email) {
-//        repository.deleteByEmail(email);
-//
-//    }
+
+    @Override
+    public User updateUser(User User) {
+        return repository.save(User);
+    }
+
+
+    @Override
+    @Transactional
+    public void deleteUser(String email) {
+        repository.deleteByEmail(email);
+
+    }
+
+    @Override
+    public boolean checkPassword(User foundUser, String password) {
+        return false;
+    }
 }
