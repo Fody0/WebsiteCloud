@@ -1,8 +1,6 @@
 spring:
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
   datasource:
-    url: jdbc:postgresql://localhost:5432/users_db
+    url: jdbc:postgresql://localhost:5432/testing_db?autoReconnect=true&useSSL=false&createDatabaseIfNotExist=tru
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -15,3 +13,10 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    generate-ddl: true
+  session:
+
+    timeout: 15m
+    jdbc:
+      initialize-schema: always
+

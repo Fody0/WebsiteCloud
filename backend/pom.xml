@@ -71,6 +71,7 @@
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-jdbc</artifactId>
+            <version>3.3.6</version>
         </dependency>
 
         <dependency>
