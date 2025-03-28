@@ -26,8 +26,6 @@ public class UserController {
     }
 
     @PostMapping("save_user")
-    @CrossOrigin(origins = "http://localhost:3000/",
-            methods = {RequestMethod.POST}, allowCredentials = "true")
     public String saveUser(@RequestBody User user) {
         // Хешируем пароль перед сохранением
         String hashedPassword = passwordEncoder.encode(user.getPassword());
