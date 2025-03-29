@@ -1,12 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom"; // Используем NavLink вместо Link
+import axios from 'axios';
+
+import {getAuthToken, logoutUser} from "../network/User_api";
+
 
 export function Navibar() {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        const jwt = getAuthToken();
+
+        if (jwt) {
+            setIsAuthenticated(true);
+        } else {
+            setIsAuthenticated(false);
+        }
+    }, []);
+
+    const handleLogout = async () => {
+        try {
+            await logoutUser();
+            setIsAuthenticated(false);
+        } catch (error) {
+            console.error('Ошибка при выходе из системы:', error);
+        }
+    };
+
+
+
     return (
         <>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="px-4">
-                <Navbar.Brand className="me-4">WebDev</Navbar.Brand>
+                <Navbar.Brand as={NavLink} to="/" className="me-4">
+                    WebDev
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
@@ -16,8 +45,14 @@ export function Navibar() {
                         <Nav.Link as={NavLink} to="/services" activeClassName="active">Services</Nav.Link>
                     </Nav>
                     <Nav className="ms-auto">
-                        <Button as={NavLink} to="/login" variant="primary" className="me-2">Log In</Button>
-                        <Button as={NavLink} to="/register" variant="primary">Sign Up</Button>
+                        {isAuthenticated ? (
+                            <Button variant="primary" onClick={handleLogout}>Log Out</Button>
+                        ) : (
+                            <>
+                                <Button as={NavLink} to="/login" variant="primary" className="me-2">Log In</Button>
+                                <Button as={NavLink} to="/register" variant="primary">Sign Up</Button>
+                            </>
+                        )}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

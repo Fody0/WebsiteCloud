@@ -37,6 +37,8 @@ export const registerUser = async (formData) => {
             withCredentials: true
         });
         setAuthToken(response.data.token);
+        window.localStorage.setItem('name', response.data.name);
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error('Ошибка при регистрации:', error);
@@ -50,7 +52,7 @@ export const loginUser = async (formData) => {
         var header;
         if(getAuthToken() == null) header = "null";
         else header = "Bearer ".concat(getAuthToken());
-        const response = await axios.post(`${main_part_link}api/v1/auth/login/authenticate`, formData, {
+        const response = await axios.post(`${main_part_link}api/v1/auth/authenticate`, formData, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -58,11 +60,16 @@ export const loginUser = async (formData) => {
 
         });
         setAuthToken(response.data.token);
+        window.localStorage.setItem('name', response.data.name);
+        window.localStorage.setItem('surname', response.data.surname);
+        window.localStorage.setItem('email', response.data.email);
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error('Ошибка при входе:', error);
         throw error;
     }
+
 
 };
 export const forgotPassword = async (email) => {
@@ -76,6 +83,25 @@ export const forgotPassword = async (email) => {
         return response.data;
     } catch (error) {
         console.error('Ошибка при отправке письма для сброса пароля:', error);
+        throw error;
+    }
+};
+export const logoutUser = async () => {
+    try {
+          /*  var header;
+            if(getAuthToken() == null) header = "null";
+            else header = "Bearer ".concat(getAuthToken());
+            console.log('Logging out...');
+            const response = await axios.post(`${main_part_link}/api/v1/Users/logout`, {}, {
+                headers: {
+                    "Authorization": header,
+                },
+
+            });*/
+        /*return response.data;*/
+        setAuthToken('');
+    } catch (error) {
+        console.error('Ошибка при выходе из системы:', error);
         throw error;
     }
 };
