@@ -29,4 +29,8 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.authenticate(request));
     }
 
+    @PostMapping("/logout")
+    public String logout (){
+        return "Successfully logged out";
+    }
 }
