@@ -34,6 +34,7 @@ export const registerUser = async (formData) => {
             headers: {
                 'Content-Type': 'application/json',
             },
+            withCredentials: true
         });
         setAuthToken(response.data.token);
         return response.data;
@@ -53,6 +54,8 @@ export const loginUser = async (formData) => {
             headers: {
                 'Content-Type': 'application/json',
             },
+            withCredentials: true
+
         });
         setAuthToken(response.data.token);
         return response.data;
