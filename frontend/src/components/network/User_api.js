@@ -100,6 +100,7 @@ export const logoutUser = async () => {
             });*/
         /*return response.data;*/
         setAuthToken('');
+
     } catch (error) {
         console.error('Ошибка при выходе из системы:', error);
         throw error;
@@ -111,6 +112,7 @@ export const fetchServices = async () => {
         return response.data;
     } catch (error) {
         console.error('Ошибка при получении списка услуг:', error);
+
         throw error;
     }
 };

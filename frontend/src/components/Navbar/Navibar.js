@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Nav, Navbar } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { getAuthToken, logoutUser } from "../network/User_api";
 
 export function Navibar() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userName, setUserName] = useState('');
     const [userSurnameInitial, setUserSurnameInitial] = useState('');
+    const navigate = useNavigate(); // Используем useNavigate для перенаправления
 
     useEffect(() => {
         const jwt = getAuthToken();
@@ -30,6 +31,7 @@ export function Navibar() {
             setIsAuthenticated(false);
             setUserName('');
             setUserSurnameInitial('');
+
         } catch (error) {
             console.error('Ошибка при выходе из системы:', error);
         }
@@ -55,7 +57,7 @@ export function Navibar() {
                                 <NavLink to="/profile" className="text-white me-2 text-decoration-none">
                                     <span className="align-middle">{userName} {userSurnameInitial}.</span>
                                 </NavLink>
-                                <Button variant="primary">Log Out</Button>
+                                <Button variant="primary" onClick={handleLogout}>Log Out</Button>
                             </>
                         ) : (
                             <>
