@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
 import { formValidationSchema } from '../network/Validation';
@@ -12,6 +12,26 @@ const Profile = () => {
     });
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [errorLoading, setErrorLoading] = useState(null);
+
+    useEffect(() => {
+        // Инициализируем formData из localStorage
+        const name = window.localStorage.getItem('name');
+        const surname = window.localStorage.getItem('surname');
+
+        if (name && surname) {
+            setFormData({
+                ...formData,
+                name: `${name} ${surname}`, // Формируем ФИО из имени и фамилии
+                snils: window.localStorage.getItem('snils') || '',
+                insurancePolicy: window.localStorage.getItem('insurancePolicy') || '',
+                passport: window.localStorage.getItem('passport') || ''
+            });
+        }
+
+        setLoading(false);
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -43,11 +63,41 @@ const Profile = () => {
         const isValid = await validate(formData);
         if (!isValid) return;
 
-        // здесь будкт логику отправки данных на сервер
+        try {
+            // Здесь будет логика отправки данных на сервер
+            console.log('Отправляем данные:', formData);
 
-        setStatus('Данные успешно сохранены!');
-        setTimeout(() => setStatus(''), 3000);
+
+            const [lastName, firstName, patronymic] = formData.name.split(' ');
+            window.localStorage.setItem('name', lastName);
+            window.localStorage.setItem('surname', firstName);
+            window.localStorage.setItem('snils', formData.snils);
+            window.localStorage.setItem('insurancePolicy', formData.insurancePolicy);
+            window.localStorage.setItem('passport', formData.passport);
+
+            setStatus('Данные успешно сохранены!');
+            setTimeout(() => setStatus(''), 3000);
+        } catch (error) {
+            setStatus('Произошла ошибка при сохранении данных.');
+            setTimeout(() => setStatus(''), 3000);
+        }
     };
+
+    if (loading) {
+        return (
+            <Container className="mt-5 pt-5">
+                <h2 className="text-center mb-4">Загрузка...</h2>
+            </Container>
+        );
+    }
+
+    if (errorLoading) {
+        return (
+            <Container className="mt-5 pt-5">
+                <h2 className="text-center mb-4">Произошла ошибка: {errorLoading.message}</h2>
+            </Container>
+        );
+    }
 
     return (
         <>
@@ -73,7 +123,6 @@ const Profile = () => {
                             {errors.name}
                         </Form.Control.Feedback>
                     </Form.Group>
-
 
                     <Form.Group className="mb-3">
                         <Form.Label>СНИЛС</Form.Label>

@@ -7,7 +7,7 @@ export function Navibar() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userName, setUserName] = useState('');
     const [userSurnameInitial, setUserSurnameInitial] = useState('');
-    const navigate = useNavigate(); // Используем useNavigate для перенаправления
+    const navigate = useNavigate();
 
     useEffect(() => {
         const jwt = getAuthToken();

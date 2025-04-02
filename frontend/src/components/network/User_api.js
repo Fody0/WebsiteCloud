@@ -38,6 +38,7 @@ export const registerUser = async (formData) => {
         });
         setAuthToken(response.data.token);
         window.localStorage.setItem('name', response.data.name);
+        window.localStorage.setItem('surname', response.data.surname);
         console.log(response.data);
         return response.data;
     } catch (error) {

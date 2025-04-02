@@ -11,6 +11,7 @@ import Reset from "./components/Reset/Reset";
 import Services from "./components/Services/Services";
 import ServiceForm from "./components/Services/ServiceForm";
 import Profile from "./components/Profile/Profile";
+import PrivateRoute from "./components/Profile/PrivateRoute";
 
 
 const App = () => {
@@ -26,7 +27,7 @@ const App = () => {
                 <Route path="/reset-password" element={<Reset />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/form/:id" element={<ServiceForm />} />
-                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile" element={<PrivateRoute element={Profile} />}/>
 
             </Routes>
         </Router>
