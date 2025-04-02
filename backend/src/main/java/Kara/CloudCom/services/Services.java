@@ -3,18 +3,24 @@ package Kara.CloudCom.services;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "_services")
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-
-@Table(name = "_services")
 public class Services {
     @Id
-    @GeneratedValue
-    Integer id;
-    @Column(nullable = false)
-    String name;
-    String description;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    private String description;
+
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ServicesField> fields = new ArrayList<>();
 }
