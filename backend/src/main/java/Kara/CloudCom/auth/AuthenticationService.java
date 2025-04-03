@@ -24,6 +24,7 @@ public class AuthenticationService {
         var user = User.builder()
                 .name(request.getName())
                 .surname(request.getSurname())
+                .middle_name(request.getMiddle_name())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.User)
@@ -35,6 +36,7 @@ public class AuthenticationService {
                 .email(user.getEmail())
                 .name(user.getName())
                 .surname(user.getSurname())
+                .middle_name(request.getMiddle_name())
                 .build();
     }
 
@@ -52,6 +54,7 @@ public class AuthenticationService {
                 .email(user.getEmail())
                 .name(user.getName())
                 .surname(user.getSurname())
+                .middle_name(user.getMiddle_name())
                 .build();
     }
 }
