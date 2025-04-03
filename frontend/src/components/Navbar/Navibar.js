@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Nav, Navbar,Image } from "react-bootstrap";
+import { Button, Nav, Navbar } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getAuthToken, logoutUser } from "../network/User_api";
 import logo from '../../image/cloudcom.png';
