@@ -34,10 +34,11 @@ export const registerUser = async (formData) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            withCredentials: true
+
         });
         setAuthToken(response.data.token);
         window.localStorage.setItem('name', response.data.name);
+        window.localStorage.setItem('surname', response.data.surname);
         console.log(response.data);
         return response.data;
     } catch (error) {
@@ -56,13 +57,13 @@ export const loginUser = async (formData) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            withCredentials: true
+
 
         });
         setAuthToken(response.data.token);
         window.localStorage.setItem('name', response.data.name);
         window.localStorage.setItem('surname', response.data.surname);
-        window.localStorage.setItem('email', response.data.email);
+
         console.log(response.data);
         return response.data;
     } catch (error) {
@@ -99,9 +100,24 @@ export const logoutUser = async () => {
 
             });*/
         /*return response.data;*/
+
+
         setAuthToken('');
+        localStorage.clear();
+
+
     } catch (error) {
         console.error('Ошибка при выходе из системы:', error);
+        throw error;
+    }
+};
+export const fetchServices = async () => {
+    try {
+        const response = await axios.get(`${main_part_link}api/v1/services`);
+        return response.data;
+    } catch (error) {
+        console.error('Ошибка при получении списка услуг:', error);
+
         throw error;
     }
 };

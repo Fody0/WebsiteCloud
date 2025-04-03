@@ -1,37 +1,49 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Form, Button, Container, Alert } from 'react-bootstrap';
-import { formValidationSchema } from '../network/Validation';
+import React, { useState, useEffect } from 'react';
+import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
+import { formValidationSchema } from '../network/Validation';
 
-const initialUserData = {
-    name: '',
-    snils: '',
-    insurancePolicy: '',
-    passport: ''
-};
-
-const ServiceForm = () => {
-    const { id } = useParams();
-    const [formData, setFormData] = useState(() => {
-    
-        const savedData = localStorage.getItem('userData');
-        return savedData
-            ? JSON.parse(savedData)
-            : { ...initialUserData };
+const Profile = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        snils: '',
+        insurancePolicy: '',
+        passport: ''
     });
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState('');
-    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    const [errorLoading, setErrorLoading] = useState(null);
+
+    useEffect(() => {
+        const name = window.localStorage.getItem('name');
+        const surname = window.localStorage.getItem('surname');
+
+
+        if (name && surname) {
+            setFormData({
+                ...formData,
+                name: `${surname} ${name}`,
+                snils: window.localStorage.getItem('snils') || '',
+                insurancePolicy: window.localStorage.getItem('insurancePolicy') || '',
+                passport: window.localStorage.getItem('passport') || ''
+            });
+        }
+
+        setLoading(false);
+    }, []);
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
     };
 
-
-    const validate = async () => {
+    const validate = async (values) => {
         try {
-            await formValidationSchema.validate(formData, { abortEarly: false });
+            await formValidationSchema.validate(values, { abortEarly: false });
             setErrors({});
             return true;
         } catch (err) {
@@ -48,36 +60,60 @@ const ServiceForm = () => {
         e.preventDefault();
         setStatus('');
 
-        const isValid = await validate();
+        const isValid = await validate(formData);
         if (!isValid) return;
 
         try {
-            const response = await fetch('/api/v1', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...formData, serviceId: id })
-            });
 
-            if (response.ok) {
-                setStatus('Форма успешно отправлена!');
-                setTimeout(() => navigate('/'), 2000);
-            } else {
-                throw new Error('Ошибка при отправке данных.');
-            }
+            console.log('Отправляем данные:', formData);
+
+
+            const [lastName, firstName, patronymic] = formData.name.split(' ');
+            window.localStorage.setItem('name', lastName);
+            window.localStorage.setItem('surname', firstName);
+            window.localStorage.setItem('snils', formData.snils);
+            window.localStorage.setItem('insurancePolicy', formData.insurancePolicy);
+            window.localStorage.setItem('passport', formData.passport);
+            localStorage.setItem('userData', JSON.stringify({
+                name: formData.name,
+                snils: formData.snils,
+                insurancePolicy: formData.insurancePolicy,
+                passport: formData.passport
+            }));
+            setStatus('Данные успешно сохранены!');
+            setTimeout(() => setStatus(''), 3000);
         } catch (error) {
-            setStatus('Произошла ошибка при отправке данных.');
+            setStatus('Произошла ошибка при сохранении данных.');
+            setTimeout(() => setStatus(''), 3000);
         }
     };
+
+    if (loading) {
+        return (
+            <Container className="mt-5 pt-5">
+                <h2 className="text-center mb-4">Загрузка...</h2>
+            </Container>
+        );
+    }
+
+    if (errorLoading) {
+        return (
+            <Container className="mt-5 pt-5">
+                <h2 className="text-center mb-4">Произошла ошибка: {errorLoading.message}</h2>
+            </Container>
+        );
+    }
 
     return (
         <>
             <Navibar />
             <Container className="mt-5" style={{ maxWidth: '500px' }}>
-                <h2 className="text-center mb-4">Заполните форму</h2>
+                <h2 className="text-center mb-4">Личный Кабинет</h2>
 
                 {status && <Alert variant={status.includes('успешно') ? 'success' : 'danger'}>{status}</Alert>}
 
                 <Form onSubmit={handleSubmit}>
+
                     <Form.Group className="mb-3">
                         <Form.Label>ФИО</Form.Label>
                         <Form.Control
@@ -108,6 +144,7 @@ const ServiceForm = () => {
                         </Form.Control.Feedback>
                     </Form.Group>
 
+
                     <Form.Group className="mb-3">
                         <Form.Label>Страховой полис</Form.Label>
                         <Form.Control
@@ -122,6 +159,7 @@ const ServiceForm = () => {
                             {errors.insurancePolicy}
                         </Form.Control.Feedback>
                     </Form.Group>
+
 
                     <Form.Group className="mb-3">
                         <Form.Label>Паспорт (серия и номер)</Form.Label>
@@ -138,8 +176,9 @@ const ServiceForm = () => {
                         </Form.Control.Feedback>
                     </Form.Group>
 
+
                     <Button variant="primary" type="submit" className="w-100">
-                        Отправить
+                        Сохранить
                     </Button>
                 </Form>
             </Container>
@@ -147,4 +186,4 @@ const ServiceForm = () => {
     );
 };
 
-export default ServiceForm;
+export default Profile;
