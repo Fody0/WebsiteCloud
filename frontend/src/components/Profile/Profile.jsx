@@ -16,14 +16,14 @@ const Profile = () => {
     const [errorLoading, setErrorLoading] = useState(null);
 
     useEffect(() => {
-        // Инициализируем formData из localStorage
         const name = window.localStorage.getItem('name');
         const surname = window.localStorage.getItem('surname');
+
 
         if (name && surname) {
             setFormData({
                 ...formData,
-                name: `${name} ${surname}`, // Формируем ФИО из имени и фамилии
+                name: `${surname} ${name}`,
                 snils: window.localStorage.getItem('snils') || '',
                 insurancePolicy: window.localStorage.getItem('insurancePolicy') || '',
                 passport: window.localStorage.getItem('passport') || ''
@@ -64,7 +64,7 @@ const Profile = () => {
         if (!isValid) return;
 
         try {
-            // Здесь будет логика отправки данных на сервер
+
             console.log('Отправляем данные:', formData);
 
 
@@ -74,7 +74,12 @@ const Profile = () => {
             window.localStorage.setItem('snils', formData.snils);
             window.localStorage.setItem('insurancePolicy', formData.insurancePolicy);
             window.localStorage.setItem('passport', formData.passport);
-
+            localStorage.setItem('userData', JSON.stringify({
+                name: formData.name,
+                snils: formData.snils,
+                insurancePolicy: formData.insurancePolicy,
+                passport: formData.passport
+            }));
             setStatus('Данные успешно сохранены!');
             setTimeout(() => setStatus(''), 3000);
         } catch (error) {

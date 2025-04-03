@@ -100,7 +100,11 @@ export const logoutUser = async () => {
 
             });*/
         /*return response.data;*/
+
+
         setAuthToken('');
+        localStorage.clear();
+
 
     } catch (error) {
         console.error('Ошибка при выходе из системы:', error);

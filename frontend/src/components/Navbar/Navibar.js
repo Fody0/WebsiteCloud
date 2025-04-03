@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Nav, Navbar } from "react-bootstrap";
+import { Button, Nav, Navbar,Image } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getAuthToken, logoutUser } from "../network/User_api";
+import logo from '../../image/cloudcom.png';
 
 export function Navibar() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -41,15 +42,24 @@ export function Navibar() {
         <>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="px-4">
                 <Navbar.Brand as={NavLink} to="/" className="me-4">
-                    WebDev
+                    <img
+                        src={logo}
+                        alt="CloudCom Dubna"
+                        height="40"
+                        className="d-inline-block align-top"
+                        style={{
+                            maxWidth: '150px', // Ограничиваем максимальную ширину
+                            objectFit: 'contain' // Сохраняем пропорции
+                        }}
+                    />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={NavLink} to="/" exact activeClassName="active">Home</Nav.Link>
                         <Nav.Link as={NavLink} to="/about" activeClassName="active">About</Nav.Link>
-                        <Nav.Link as={NavLink} to="/medical" activeClassName="active">Medical</Nav.Link>
-                        <Nav.Link as={NavLink} to="/services" activeClassName="active">Services</Nav.Link>
+
+
                     </Nav>
                     <Nav className="ms-auto d-flex align-items-center">
                         {isAuthenticated ? (

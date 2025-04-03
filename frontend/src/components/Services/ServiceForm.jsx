@@ -13,7 +13,13 @@ const initialUserData = {
 
 const ServiceForm = () => {
     const { id } = useParams();
-    const [formData, setFormData] = useState({ ...initialUserData });
+    const [formData, setFormData] = useState(() => {
+    
+        const savedData = localStorage.getItem('userData');
+        return savedData
+            ? JSON.parse(savedData)
+            : { ...initialUserData };
+    });
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState('');
     const navigate = useNavigate();
@@ -21,6 +27,7 @@ const ServiceForm = () => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+
 
     const validate = async () => {
         try {
