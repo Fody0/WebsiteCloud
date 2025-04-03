@@ -14,13 +14,13 @@ import java.util.List;
 public class Services {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    Integer id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+    @Column(nullable = false)
+    String name;
 
-    private String description;
+    String description;
 
-    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ServicesField> fields = new ArrayList<>();
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+    private List<ServicesField> serviceFields;
 }

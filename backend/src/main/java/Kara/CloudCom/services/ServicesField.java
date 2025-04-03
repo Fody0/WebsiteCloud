@@ -4,32 +4,23 @@ package Kara.CloudCom.services;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
-@Table(name = "service_fields")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@Table(name = "_service_field")
 public class ServicesField {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @EmbeddedId
+    private ServicesFieldKey id;
 
-    @Column(nullable = false)
-    private String fieldKey;
-
-    private String fieldValue;
-
-    @Enumerated(EnumType.STRING)
-    private FieldType fieldType;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @MapsId("serviceId")
     @JoinColumn(name = "service_id")
     private Services service;
 
-    public enum FieldType {
-        STRING, NUMBER, BOOLEAN, DATE
-    }
+    @ManyToOne
+    @MapsId("fieldId")
+    @JoinColumn(name = "field_id")
+    private RequiredData field;
 }
 
 
