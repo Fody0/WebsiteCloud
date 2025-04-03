@@ -25,6 +25,7 @@ public class User implements UserDetails{
     private Integer id;
     private String name;
     private String surname;
+    private String middle_name;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
