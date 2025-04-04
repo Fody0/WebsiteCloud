@@ -1,5 +1,6 @@
 package Kara.CloudCom.services;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,7 +19,10 @@ public class RequiredData {
     @Column(name = "field_data", nullable = false)
     private String fieldData;
 
-    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "field")
+    @JsonIgnore 
     private List<ServicesField> serviceFields;
+
+
 
 }

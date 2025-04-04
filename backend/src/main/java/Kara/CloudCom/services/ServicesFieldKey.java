@@ -5,7 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class ServicesFieldKey implements Serializable {
+    public class ServicesFieldKey implements Serializable {
 
     @Column(name = "service_id")
     private Integer serviceId;

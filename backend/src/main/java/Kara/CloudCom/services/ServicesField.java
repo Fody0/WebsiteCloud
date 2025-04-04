@@ -1,6 +1,7 @@
 package Kara.CloudCom.services;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,6 +16,7 @@ public class ServicesField {
     @ManyToOne
     @MapsId("serviceId")
     @JoinColumn(name = "service_id")
+    @JsonBackReference
     private Services service;
 
     @ManyToOne

@@ -23,6 +23,9 @@ public class ServicesController {
         return service.findAll();
     }
 
-
+    @GetMapping("/{service_name}")
+    public List<ServicesField> findByFieldSereviceName(@PathVariable String service_name){
+        return service.findFieldsByServiceName(service_name);
+    }
 
 }
