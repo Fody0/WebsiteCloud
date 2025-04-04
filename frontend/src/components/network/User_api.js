@@ -3,6 +3,7 @@ import axios from 'axios';
 export const initialRegisterData = {
     name: '',
     surname: '',
+    middle_name: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -39,6 +40,7 @@ export const registerUser = async (formData) => {
         setAuthToken(response.data.token);
         window.localStorage.setItem('name', response.data.name);
         window.localStorage.setItem('surname', response.data.surname);
+        window.localStorage.setItem('middle_name', response.data.middle_name);
         console.log(response.data);
         return response.data;
     } catch (error) {
@@ -63,7 +65,7 @@ export const loginUser = async (formData) => {
         setAuthToken(response.data.token);
         window.localStorage.setItem('name', response.data.name);
         window.localStorage.setItem('surname', response.data.surname);
-
+        window.localStorage.setItem('middle_name', response.data.middle_name);
         console.log(response.data);
         return response.data;
     } catch (error) {

@@ -6,6 +6,7 @@ import { formValidationSchema } from '../network/Validation';
 const Profile = () => {
     const [formData, setFormData] = useState({
         name: '',
+        middle_name: '',
         snils: '',
         insurancePolicy: '',
         passport: ''
@@ -18,12 +19,13 @@ const Profile = () => {
     useEffect(() => {
         const name = window.localStorage.getItem('name');
         const surname = window.localStorage.getItem('surname');
-
+        const middleName = window.localStorage.getItem('middle_name'); // Получаем отчество
 
         if (name && surname) {
             setFormData({
                 ...formData,
-                name: `${surname} ${name}`,
+                name: `${surname} ${name}${middleName ? ' ' + middleName : ''}`,
+                middle_name: middleName || '',
                 snils: window.localStorage.getItem('snils') || '',
                 insurancePolicy: window.localStorage.getItem('insurancePolicy') || '',
                 passport: window.localStorage.getItem('passport') || ''
@@ -65,21 +67,26 @@ const Profile = () => {
 
         try {
 
-            console.log('Отправляем данные:', formData);
+            const [lastName, firstName, ...rest] = formData.name.split(' ');
+            const middleName = rest.join(' ');
 
 
-            const [lastName, firstName, patronymic] = formData.name.split(' ');
-            window.localStorage.setItem('name', lastName);
-            window.localStorage.setItem('surname', firstName);
+            window.localStorage.setItem('name', firstName);
+            window.localStorage.setItem('surname', lastName);
+            window.localStorage.setItem('middle_name', formData.middle_name || middleName || '');
             window.localStorage.setItem('snils', formData.snils);
             window.localStorage.setItem('insurancePolicy', formData.insurancePolicy);
             window.localStorage.setItem('passport', formData.passport);
+
+            // Сохраняем полные данные в одном объекте
             localStorage.setItem('userData', JSON.stringify({
-                name: formData.name,
+                name: `${lastName} ${firstName} ${formData.middle_name || middleName || ''}`.trim(),
+                middle_name: formData.middle_name || middleName || '',
                 snils: formData.snils,
                 insurancePolicy: formData.insurancePolicy,
                 passport: formData.passport
             }));
+
             setStatus('Данные успешно сохранены!');
             setTimeout(() => setStatus(''), 3000);
         } catch (error) {
@@ -87,6 +94,7 @@ const Profile = () => {
             setTimeout(() => setStatus(''), 3000);
         }
     };
+
 
     if (loading) {
         return (

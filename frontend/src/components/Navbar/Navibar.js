@@ -14,6 +14,8 @@ export function Navibar() {
         const jwt = getAuthToken();
         const name = window.localStorage.getItem('name');
         const surname = window.localStorage.getItem('surname');
+        const middle_name = window.localStorage.getItem('middle_name');
+
 
         if (jwt && name && surname) {
             setIsAuthenticated(true);
@@ -48,8 +50,8 @@ export function Navibar() {
                         height="40"
                         className="d-inline-block align-top"
                         style={{
-                            maxWidth: '150px', // Ограничиваем максимальную ширину
-                            objectFit: 'contain' // Сохраняем пропорции
+                            maxWidth: '150px',
+                            objectFit: 'contain'
                         }}
                     />
                 </Navbar.Brand>

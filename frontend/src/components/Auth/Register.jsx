@@ -82,6 +82,20 @@ const Register = () => {
 
                 <Form.Group className="mb-3">
                     <Form.Control
+                        type="text"
+                        name="middle_name"
+                        placeholder="Отчество"
+                        onChange={handleChange}
+                        value={formData.middle_name}
+                        isInvalid={!!errors.middle_name}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {errors.middle_name}
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Control
                         type="email"
                         name="email"
                         placeholder="Email"
