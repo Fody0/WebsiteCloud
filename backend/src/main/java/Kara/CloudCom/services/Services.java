@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,6 +23,5 @@ public class Services {
     String description;
 
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
-//    @JsonIgnore // ← Эта аннотация здесь
     private List<ServicesField> serviceFields;
 }

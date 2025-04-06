@@ -1,5 +1,7 @@
 package Kara.CloudCom.user;
 
+import Kara.CloudCom.auth.PersonalData;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,8 +23,9 @@ import java.util.List;
 public class User implements UserDetails{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
     private String surname;
     private String middle_name;
@@ -65,4 +68,14 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+
+    // Связь с PersonalData
+    @OneToOne(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    @JsonManagedReference // Управление JSON-сериализацией
+    private PersonalData personalData;
 }
