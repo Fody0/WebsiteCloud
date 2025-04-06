@@ -4,6 +4,7 @@ import Kara.CloudCom.config.JwtService;
 import Kara.CloudCom.user.Role;
 import Kara.CloudCom.user.User;
 import Kara.CloudCom.user.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,12 +16,15 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
 
     private final UserRepository repository;
+    private final UserDataRepository dataRepository;
+//    private final UserDataRequest dataRequest;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+
     public AuthenticationResponse register(RegisterRequest request) {
-        System.out.println("-------Here");
+
         var user = User.builder()
                 .name(request.getName())
                 .surname(request.getSurname())
@@ -57,4 +61,23 @@ public class AuthenticationService {
                 .middle_name(user.getMiddle_name())
                 .build();
     }
+
+    public void userWithPersonalData(UserDataRequest request, HttpServletRequest httpRequest) {
+        final String authHeader = httpRequest.getHeader("Authorization");
+        final String jwtToken;
+        final String userEmail;
+        jwtToken = authHeader.substring(7);
+        userEmail = jwtService.extractUsername(jwtToken);
+        var user = repository.findByEmail(userEmail).orElseThrow();
+
+        PersonalData personalData = PersonalData.builder()
+                .snils(request.getSnils())
+                .insurancePolicy(request.getInsurancePolicy())
+                .passport(request.getPassport())
+                .user(user)
+                .build();
+        user.setPersonalData(personalData);
+        repository.save(user);
+    }
+
 }

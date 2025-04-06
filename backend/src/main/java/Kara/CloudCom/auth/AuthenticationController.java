@@ -1,11 +1,9 @@
 package Kara.CloudCom.auth;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/auth")
@@ -33,4 +31,14 @@ public class AuthenticationController {
     public String logout (){
         return "Successfully logged out";
     }
+
+    @PostMapping("/register_personal")
+    public void createUserWithPersonalData(
+            @RequestBody UserDataRequest request_data,
+            HttpServletRequest httpRequest
+    ) {
+        System.out.println("--------------Success----------------------");
+        service.userWithPersonalData(request_data, httpRequest);
+    }
+
 }
