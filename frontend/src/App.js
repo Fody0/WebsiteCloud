@@ -25,10 +25,9 @@ const App = () => {
                 <Route path="/about" element={<About />} />
                 <Route path="/forgot-password" element={<Forgot />} />
                 <Route path="/reset-password" element={<Reset />} />
-                <Route path="/services" element={<Services />} />
                 <Route path="/form/:id" element={<ServiceForm />} />
                 <Route path="/profile" element={<PrivateRoute element={Profile} />}/>
-
+                <Route path="/service-form/:serviceName" element={<ServiceForm />} />
             </Routes>
         </Router>
     );

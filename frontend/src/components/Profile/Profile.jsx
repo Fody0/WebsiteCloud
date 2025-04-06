@@ -122,7 +122,7 @@ const Profile = () => {
 
                 <Form onSubmit={handleSubmit}>
 
-                    <Form.Group className="mb-3">
+                  {/*  <Form.Group className="mb-3">
                         <Form.Label>ФИО</Form.Label>
                         <Form.Control
                             type="text"
@@ -135,7 +135,7 @@ const Profile = () => {
                         <Form.Control.Feedback type="invalid">
                             {errors.name}
                         </Form.Control.Feedback>
-                    </Form.Group>
+                    </Form.Group>*/}
 
                     <Form.Group className="mb-3">
                         <Form.Label>СНИЛС</Form.Label>

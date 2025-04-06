@@ -7,7 +7,7 @@ const Error = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigate('/');
-        }, 5000);
+        }, 3000);
 
         return () => clearTimeout(timer);
     }, [navigate]);
@@ -17,9 +17,9 @@ const Error = () => {
             <h1 style={{color:'red'}}>
                 Вы перешли на несуществующую страницу!
             </h1>
-            <p>Вы будете перенаправлены на главную страницу через 5 секунд...</p>
+            <p>Вы будете перенаправлены на главную страницу через 3 секунды...</p>
         </div>
     );
-};
+}
 
 export default Error;

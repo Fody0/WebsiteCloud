@@ -39,7 +39,7 @@ const Register = () => {
             try {
                 const data = await registerUser(dataToSend);
                 console.log('Регистрация успешна:', data);
-                navigate('/login');
+                navigate('/');
             } catch (error) {
                 console.error('Ошибка при регистрации:', error);
             }

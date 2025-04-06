@@ -16,7 +16,6 @@ const Home = () => {
                 setServices(data);
             } catch (error) {
                 setError(error);
-                // Устанавливаем пустой массив услуг при ошибке
                 setServices([]);
             } finally {
                 setLoading(false);
@@ -61,7 +60,7 @@ const Home = () => {
                                         <Card.Body>
                                             <Card.Title>{service.name}</Card.Title>
                                             <Card.Text>{service.description}</Card.Text>
-                                            <Link to={`/form/${service.id}`}>
+                                            <Link to={`/service-form/${service.name}`}>
                                                 <Button variant="primary" className="w-100">
                                                     Выбрать услугу
                                                 </Button>
