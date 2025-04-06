@@ -107,6 +107,22 @@ const ServiceForm = () => {
                 {status && <Alert variant={status.includes('успешно') ? 'success' : 'danger'}>{status}</Alert>}
 
                 <Form onSubmit={handleSubmit}>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>ФИО</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            placeholder="Например: Иванов Иван Иванович"
+                            onChange={handleChange}
+                            isInvalid={!!errors.name}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            {errors.name}
+                        </Form.Control.Feedback>
+                    </Form.Group>
+
                     {fields.map(({ field }) => (
                         <Form.Group className="mb-3" key={field.fieldId}>
                             <Form.Label>{field.fieldData}</Form.Label>
