@@ -5,6 +5,7 @@ import { Navibar } from "../Navbar/Navibar";
 import * as Yup from 'yup';
 import axios from "axios";
 import { serviceFormValidationRules, normalizeFieldName } from "../network/Validation";
+import MyComponent from "./MyComponent";
 
 const ServiceForm = () => {
     const { serviceName } = useParams();
@@ -70,9 +71,12 @@ const ServiceForm = () => {
     };
 
     const handleSubmit = async (e) => {
+        console.log(formData);
         e.preventDefault();
         const isValid = await validate();
         if (!isValid) return;
+
+
 
         try {
             const response = await axios.post(`${main_part_link}api/v1`, {...formData, serviceName}, {
@@ -108,7 +112,7 @@ const ServiceForm = () => {
 
                 <Form onSubmit={handleSubmit}>
 
-                    <Form.Group className="mb-3">
+                      <Form.Group className="mb-3">
                         <Form.Label>ФИО</Form.Label>
                         <Form.Control
                             type="text"
@@ -123,22 +127,41 @@ const ServiceForm = () => {
                         </Form.Control.Feedback>
                     </Form.Group>
 
-                    {fields.map(({ field }) => (
-                        <Form.Group className="mb-3" key={field.fieldId}>
-                            <Form.Label>{field.fieldData}</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name={field.fieldData}
-                                value={formData[field.fieldData] || ''}
-                                placeholder={`Введите ${field.fieldData}`}
-                                onChange={handleChange}
-                                isInvalid={!!errors[field.fieldData]}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                {errors[field.fieldData]}
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                    ))}
+                    <MyComponent fields = {fields} formData = {formData}  handleChange = {handleChange} errors = {errors}></MyComponent>
+
+                    {/*<Form.Group className="mb-3">*/}
+                    {/*    <Form.Label>ФИО</Form.Label>*/}
+                    {/*    <Form.Control*/}
+                    {/*        type="text"*/}
+                    {/*        name="name"*/}
+                    {/*        value={formData.name}*/}
+                    {/*        placeholder="Например: Иванов Иван Иванович"*/}
+                    {/*        onChange={handleChange}*/}
+                    {/*        isInvalid={!!errors.name}*/}
+                    {/*    />*/}
+                    {/*    <Form.Control.Feedback type="invalid">*/}
+                    {/*        {errors.name}*/}
+                    {/*    </Form.Control.Feedback>*/}
+                    {/*</Form.Group>*/}
+
+
+
+                    {/*{fields.map(({ field }) => (*/}
+                    {/*    <Form.Group className="mb-3" key={field.fieldId}>*/}
+                    {/*        <Form.Label>{field.fieldData}</Form.Label>*/}
+                    {/*        <Form.Control*/}
+                    {/*            type="text"*/}
+                    {/*            name={field.fieldData}*/}
+                    {/*            value={formData[field.fieldData] || ''}*/}
+                    {/*            placeholder={`Введите ${field.fieldData}`}*/}
+                    {/*            onChange={handleChange}*/}
+                    {/*            isInvalid={!!errors[field.fieldData]}*/}
+                    {/*        />*/}
+                    {/*        <Form.Control.Feedback type="invalid">*/}
+                    {/*            {errors[field.fieldData]}*/}
+                    {/*        </Form.Control.Feedback>*/}
+                    {/*    </Form.Group>*/}
+                    {/*))}*/}
 
                     <Button type="submit" className="w-100" variant="primary">
                         Отправить
