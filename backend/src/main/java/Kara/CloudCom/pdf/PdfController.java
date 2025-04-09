@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/pdfs")
+@RequestMapping("/api/v1/pdfs")
 public class PdfController {
 
     private final PdfStorageService pdfStorageService;
