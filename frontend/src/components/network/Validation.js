@@ -78,7 +78,7 @@ export const serviceFormValidationRules = {
         .matches(insurancePolicyRegex, 'Полис должен содержать 16 цифр')
         .required('Полис обязателен'),
     'ФИО': Yup.string()
-        .matches(fioRegex, 'ФИО должно быть в формате "Иванов Иван Иванович"')
+        .matches(/^[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+$/, 'ФИО должно быть в формате "Иванов Иван Иванович"')
         .required('ФИО обязательно'),
     'ГруппаКрови': Yup.string()
         .matches(bloodGroupRegex, 'Группа крови должна быть в формате: A+, B-, AB+, O-, I+, II-, III+, IV-')

@@ -34,6 +34,7 @@ export const registerUser = async (formData) => {
         const response = await axios.post(`${main_part_link}api/v1/auth/register`, formData, {
             headers: {
                 'Content-Type': 'application/json',
+
             },
 
         });
