@@ -1,5 +1,7 @@
 package Kara.CloudCom.pdf;
 
+import Kara.CloudCom.auth.UserDataRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +20,20 @@ public class PdfController {
         this.pdfStorageService = pdfStorageService;
     }
 
-    @PostMapping
+    @PostMapping("/register")
+    public ResponseEntity<byte[]> createPdf(@RequestBody Map<String, Object> dynamicData,
+                                            HttpServletRequest httpRequest) throws IOException {
+        System.out.println("PDF CREATED");
+        PdfDocument pdf = pdfStorageService.storePdf(dynamicData, httpRequest);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdf.getFileName() + "\"")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdf.getData());
+    }
+
+    @PostMapping("/none_register")
     public ResponseEntity<byte[]> createPdf(@RequestBody Map<String, Object> dynamicData) throws IOException {
+        System.out.println("PDF CREATED");
         PdfDocument pdf = pdfStorageService.storePdf(dynamicData);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdf.getFileName() + "\"")
@@ -27,12 +41,13 @@ public class PdfController {
                 .body(pdf.getData());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<byte[]> getPdf(@PathVariable Long id) {
-        PdfDocument pdf = pdfStorageService.getPdf(id);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdf.getFileName() + "\"")
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(pdf.getData());
-    }
+
+//    @GetMapping("/{id}")
+//    public ResponseEntity<byte[]> getPdf(@PathVariable Long id) {
+//        PdfDocument pdf = pdfStorageService.getPdf(id);
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + pdf.getFileName() + "\"")
+//                .contentType(MediaType.APPLICATION_PDF)
+//                .body(pdf.getData());
+//    }
 }

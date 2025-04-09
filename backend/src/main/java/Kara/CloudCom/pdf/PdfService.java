@@ -48,25 +48,38 @@ public class PdfService {
             // Загрузка шрифта из ресурсов
             InputStream fontStream = getClass().getClassLoader().getResourceAsStream("fonts/Arial.ttf");            PDType0Font font = PDType0Font.load(document, fontStream);
 
-            float startX = 100;
+            float startX = 250;
             float startY = 700;
             float lineHeight = 15;
 
             try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-                contentStream.setFont(font, 12);
 
                 // Текущая позиция Y
                 float currentY = startY;
+                float currentX = startX-150;
+
+                var service = dynamicData.remove("service_name");
+
+                contentStream.beginText();
+                contentStream.setFont(font, 16);
+                contentStream.newLineAtOffset(startX, currentY);
+                contentStream.showText(service.toString());
+                contentStream.endText();
+                contentStream.setFont(font, 12);
+
+                currentY -= 50;
 
                 for (Map.Entry<String, Object> entry : dynamicData.entrySet()) {
+
                     String text = entry.getKey() + ": " + entry.getValue().toString();
 
                     contentStream.beginText();
-                    contentStream.newLineAtOffset(startX, currentY);
+                    contentStream.newLineAtOffset(currentX, currentY);
                     contentStream.showText(text);
                     contentStream.endText();
 
                     currentY -= lineHeight;
+
                 }
             }
 

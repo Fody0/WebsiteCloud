@@ -32,7 +32,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/auth/register","/api/v1/auth/authenticate",
 //                                "/api/v1/auth/register_personal",
                                 "/api/v1/services/**",
-                                "/api/pdfs/**").permitAll()
+                                "/api/pdfs/none_register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
