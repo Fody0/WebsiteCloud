@@ -1,9 +1,12 @@
 package Kara.CloudCom.auth;
 
+import Kara.CloudCom.services.ServicesField;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/auth")
@@ -37,8 +40,14 @@ public class AuthenticationController {
             @RequestBody UserDataRequest request_data,
             HttpServletRequest httpRequest
     ) {
-        System.out.println("--------------Success----------------------");
+//        System.out.println("--------------Success----------------------");
         service.userWithPersonalData(request_data, httpRequest);
+    }
+
+    @GetMapping("/register_personal")
+    public PersonalData findPersonalData(HttpServletRequest httpRequest){
+
+        return service.findPersonalData(httpRequest);
     }
 
 }
