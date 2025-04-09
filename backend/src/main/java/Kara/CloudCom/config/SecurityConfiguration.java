@@ -31,7 +31,8 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/register","/api/v1/auth/authenticate",
 //                                "/api/v1/auth/register_personal",
-                                "/api/v1/services/**").permitAll()
+                                "/api/v1/services/**",
+                                "/api/pdfs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

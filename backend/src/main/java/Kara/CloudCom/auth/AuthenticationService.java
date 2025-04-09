@@ -11,6 +11,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -70,14 +72,41 @@ public class AuthenticationService {
         userEmail = jwtService.extractUsername(jwtToken);
         var user = repository.findByEmail(userEmail).orElseThrow();
 
-        PersonalData personalData = PersonalData.builder()
-                .snils(request.getSnils())
-                .insurancePolicy(request.getInsurancePolicy())
-                .passport(request.getPassport())
-                .user(user)
-                .build();
+        PersonalData personalData;
+
+        if (dataRepository.findUserByName(user.getEmail()) != null) {
+            personalData = dataRepository.findUserByName(user.getEmail());
+            personalData.setPassport(request.getPassport());
+            personalData.setSnils(request.getSnils());
+            personalData.setInsurancePolicy(request.getInsurancePolicy());
+
+        }
+        else{
+           personalData = PersonalData.builder()
+                    .snils(request.getSnils())
+                    .insurancePolicy(request.getInsurancePolicy())
+                    .passport(request.getPassport())
+                    .user(user)
+                    .build();
+
+        }
+
         user.setPersonalData(personalData);
         repository.save(user);
+
+
+    }
+
+    public PersonalData findPersonalData(HttpServletRequest httpRequest)
+    {
+        final String authHeader = httpRequest.getHeader("Authorization");
+        final String jwtToken;
+        final String userEmail;
+        jwtToken = authHeader.substring(7);
+        userEmail = jwtService.extractUsername(jwtToken);
+        var user = repository.findByEmail(userEmail).orElseThrow();
+
+        return dataRepository.findUserByName(user.getEmail());
     }
 
 }
