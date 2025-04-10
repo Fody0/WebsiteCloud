@@ -3,12 +3,10 @@ import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
 import { formValidationSchema } from '../network/Validation';
 import axios from 'axios';
-import {getAuthToken} from "../network/User_api";
+import { getAuthToken } from "../network/User_api";
 
 const Profile = () => {
     const [formData, setFormData] = useState({
-        name: '',
-        middle_name: '',
         snils: '',
         insurancePolicy: '',
         passport: ''
@@ -21,22 +19,57 @@ const Profile = () => {
     const main_part_link = 'http://localhost:8080/';
 
     useEffect(() => {
-        const name = window.localStorage.getItem('name');
-        const surname = window.localStorage.getItem('surname');
-        const middleName = window.localStorage.getItem('middle_name');
+        const fetchPersonalData = async () => {
+            try {
 
-        if (name && surname) {
-            setFormData({
-                ...formData,
-                name: `${surname} ${name}${middleName ? ' ' + middleName : ''}`,
-                middle_name: middleName || '',
-                snils: window.localStorage.getItem('snils') || '',
-                insurancePolicy: window.localStorage.getItem('insurancePolicy') || '',
-                passport: window.localStorage.getItem('passport') || ''
-            });
-        }
+                const storedSnils = window.localStorage.getItem('snils');
+                const storedInsurance = window.localStorage.getItem('insurancePolicy');
+                const storedPassport = window.localStorage.getItem('passport');
 
-        setLoading(false);
+                if (!storedSnils || !storedInsurance || !storedPassport) {
+                    const response = await axios.get(
+                        `${main_part_link}api/v1/auth/register_personal`,
+                        {
+                            headers: {
+                                'Authorization': 'Bearer '.concat(getAuthToken())
+                            }
+                        }
+                    );
+
+                    const data = response.data;
+
+
+                    const newFormData = {
+                        snils: data.snils || '',
+                        insurancePolicy: data.insurancePolicy || '',
+                        passport: data.passport || ''
+                    };
+
+                    setFormData(newFormData);
+
+                    window.localStorage.setItem('snils', data.snils || '');
+                    window.localStorage.setItem('insurancePolicy', data.insurancePolicy || '');
+                    window.localStorage.setItem('passport', data.passport || '');
+
+                    localStorage.setItem('userData', JSON.stringify(newFormData));
+                } else {
+
+                    setFormData({
+                        snils: storedSnils || '',
+                        insurancePolicy: storedInsurance || '',
+                        passport: storedPassport || ''
+                    });
+                }
+
+                setLoading(false);
+            } catch (error) {
+                console.error('Ошибка при загрузке данных:', error);
+                setErrorLoading(error);
+                setLoading(false);
+            }
+        };
+
+        fetchPersonalData();
     }, []);
 
     const handleChange = (e) => {
@@ -70,19 +103,13 @@ const Profile = () => {
         if (!isValid) return;
 
         try {
-            const [lastName, firstName, ...rest] = formData.name.split(' ');
-            const middleName = rest.join(' ');
-
-            // Очищаем только страховой полис и паспорт от нецифровых символов
             const cleanValue = (value) => value.replace(/[^0-9]/g, '');
 
             const personalData = {
-                snils: formData.snils, // Оставляем СНИЛС как есть (с дефисами и пробелом)
+                snils: formData.snils,
                 insurancePolicy: cleanValue(formData.insurancePolicy),
                 passport: cleanValue(formData.passport)
             };
-            console.log(personalData);
-
 
             const response = await axios.post(
                 `${main_part_link}api/v1/auth/register_personal`,
@@ -95,20 +122,11 @@ const Profile = () => {
                 }
             );
 
-            window.localStorage.setItem('name', firstName);
-            window.localStorage.setItem('surname', lastName);
-            window.localStorage.setItem('middle_name', formData.middle_name || middleName || '');
             window.localStorage.setItem('snils', formData.snils);
             window.localStorage.setItem('insurancePolicy', formData.insurancePolicy);
             window.localStorage.setItem('passport', formData.passport);
 
-            localStorage.setItem('userData', JSON.stringify({
-                name: `${lastName} ${firstName} ${formData.middle_name || middleName || ''}`.trim(),
-                middle_name: formData.middle_name || middleName || '',
-                snils: formData.snils,
-                insurancePolicy: formData.insurancePolicy,
-                passport: formData.passport
-            }));
+            localStorage.setItem('userData', JSON.stringify(formData));
 
             setStatus(response.data?.message || 'Данные успешно сохранены!');
             setTimeout(() => setStatus(''), 3000);
@@ -118,7 +136,6 @@ const Profile = () => {
             setTimeout(() => setStatus(''), 3000);
         }
     };
-
 
     if (loading) {
         return (
@@ -200,4 +217,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
