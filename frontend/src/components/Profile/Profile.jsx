@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
 import { formValidationSchema } from '../network/Validation';
+import axios from 'axios';
+import { getAuthToken } from "../network/User_api";
 
 const Profile = () => {
     const [formData, setFormData] = useState({
-        name: '',
-        middle_name: '',
         snils: '',
         insurancePolicy: '',
         passport: ''
@@ -16,23 +16,60 @@ const Profile = () => {
     const [loading, setLoading] = useState(true);
     const [errorLoading, setErrorLoading] = useState(null);
 
+    const main_part_link = 'http://localhost:8080/';
+
     useEffect(() => {
-        const name = window.localStorage.getItem('name');
-        const surname = window.localStorage.getItem('surname');
-        const middleName = window.localStorage.getItem('middle_name'); // Получаем отчество
+        const fetchPersonalData = async () => {
+            try {
 
-        if (name && surname) {
-            setFormData({
-                ...formData,
-                name: `${surname} ${name}${middleName ? ' ' + middleName : ''}`,
-                middle_name: middleName || '',
-                snils: window.localStorage.getItem('snils') || '',
-                insurancePolicy: window.localStorage.getItem('insurancePolicy') || '',
-                passport: window.localStorage.getItem('passport') || ''
-            });
-        }
+                const storedSnils = window.localStorage.getItem('snils');
+                const storedInsurance = window.localStorage.getItem('insurancePolicy');
+                const storedPassport = window.localStorage.getItem('passport');
 
-        setLoading(false);
+                if (!storedSnils || !storedInsurance || !storedPassport) {
+                    const response = await axios.get(
+                        `${main_part_link}api/v1/auth/register_personal`,
+                        {
+                            headers: {
+                                'Authorization': 'Bearer '.concat(getAuthToken())
+                            }
+                        }
+                    );
+
+                    const data = response.data;
+
+
+                    const newFormData = {
+                        snils: data.snils || '',
+                        insurancePolicy: data.insurancePolicy || '',
+                        passport: data.passport || ''
+                    };
+
+                    setFormData(newFormData);
+
+                    window.localStorage.setItem('snils', data.snils || '');
+                    window.localStorage.setItem('insurancePolicy', data.insurancePolicy || '');
+                    window.localStorage.setItem('passport', data.passport || '');
+
+                    localStorage.setItem('userData', JSON.stringify(newFormData));
+                } else {
+
+                    setFormData({
+                        snils: storedSnils || '',
+                        insurancePolicy: storedInsurance || '',
+                        passport: storedPassport || ''
+                    });
+                }
+
+                setLoading(false);
+            } catch (error) {
+                console.error('Ошибка при загрузке данных:', error);
+                setErrorLoading(error);
+                setLoading(false);
+            }
+        };
+
+        fetchPersonalData();
     }, []);
 
     const handleChange = (e) => {
@@ -66,35 +103,39 @@ const Profile = () => {
         if (!isValid) return;
 
         try {
+            const cleanValue = (value) => value.replace(/[^0-9]/g, '');
 
-            const [lastName, firstName, ...rest] = formData.name.split(' ');
-            const middleName = rest.join(' ');
+            const personalData = {
+                snils: formData.snils,
+                insurancePolicy: cleanValue(formData.insurancePolicy),
+                passport: cleanValue(formData.passport)
+            };
 
+            const response = await axios.post(
+                `${main_part_link}api/v1/auth/register_personal`,
+                personalData,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer '.concat(getAuthToken())
+                    }
+                }
+            );
 
-            window.localStorage.setItem('name', firstName);
-            window.localStorage.setItem('surname', lastName);
-            window.localStorage.setItem('middle_name', formData.middle_name || middleName || '');
             window.localStorage.setItem('snils', formData.snils);
             window.localStorage.setItem('insurancePolicy', formData.insurancePolicy);
             window.localStorage.setItem('passport', formData.passport);
 
-            // Сохраняем полные данные в одном объекте
-            localStorage.setItem('userData', JSON.stringify({
-                name: `${lastName} ${firstName} ${formData.middle_name || middleName || ''}`.trim(),
-                middle_name: formData.middle_name || middleName || '',
-                snils: formData.snils,
-                insurancePolicy: formData.insurancePolicy,
-                passport: formData.passport
-            }));
+            localStorage.setItem('userData', JSON.stringify(formData));
 
-            setStatus('Данные успешно сохранены!');
+            setStatus(response.data?.message || 'Данные успешно сохранены!');
             setTimeout(() => setStatus(''), 3000);
         } catch (error) {
-            setStatus('Произошла ошибка при сохранении данных.');
+            console.error('Ошибка при сохранении данных:', error);
+            setStatus(error.response?.data?.message || 'Произошла ошибка при сохранении данных.');
             setTimeout(() => setStatus(''), 3000);
         }
     };
-
 
     if (loading) {
         return (
@@ -121,22 +162,6 @@ const Profile = () => {
                 {status && <Alert variant={status.includes('успешно') ? 'success' : 'danger'}>{status}</Alert>}
 
                 <Form onSubmit={handleSubmit}>
-
-                  {/*  <Form.Group className="mb-3">
-                        <Form.Label>ФИО</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            placeholder="Например: Иванов Иван Иванович"
-                            onChange={handleChange}
-                            isInvalid={!!errors.name}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.name}
-                        </Form.Control.Feedback>
-                    </Form.Group>*/}
-
                     <Form.Group className="mb-3">
                         <Form.Label>СНИЛС</Form.Label>
                         <Form.Control
@@ -151,7 +176,6 @@ const Profile = () => {
                             {errors.snils}
                         </Form.Control.Feedback>
                     </Form.Group>
-
 
                     <Form.Group className="mb-3">
                         <Form.Label>Страховой полис</Form.Label>
@@ -168,7 +192,6 @@ const Profile = () => {
                         </Form.Control.Feedback>
                     </Form.Group>
 
-
                     <Form.Group className="mb-3">
                         <Form.Label>Паспорт (серия и номер)</Form.Label>
                         <Form.Control
@@ -183,7 +206,6 @@ const Profile = () => {
                             {errors.passport}
                         </Form.Control.Feedback>
                     </Form.Group>
-
 
                     <Button variant="primary" type="submit" className="w-100">
                         Сохранить
