@@ -29,8 +29,13 @@ public class User implements UserDetails{
     private String name;
     private String surname;
     private String middle_name;
+
+    @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
     private String password;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
