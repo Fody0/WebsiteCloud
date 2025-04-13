@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Form, Button, Container, Alert, Modal } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
-import * as Yup from 'yup';
 import axios from "axios";
-import { serviceFormValidationRules, normalizeFieldName } from "../network/Validation";
-import MyComponent from "./MyComponent";
+import { validateServiceForm } from "../network/Validation";
+import FormFields from "./FormFields";
+import { submitServiceForm } from "../network/User_api";
 
 const ServiceForm = () => {
     const { serviceName } = useParams();
-    const navigate = useNavigate();
     const [fields, setFields] = useState([]);
-    const [formData, setFormData] = useState({
-        name: '',
-        surname: '',
-        middle_name: ''
-    });
+    const [formData, setFormData] = useState({});
     const [errors, setErrors] = useState({});
     const [status, setStatus] = useState('');
     const [loading, setLoading] = useState(true);
@@ -25,18 +20,30 @@ const ServiceForm = () => {
     const main_part_link = 'http://localhost:8080/';
 
     useEffect(() => {
+        const loadUserData = () => {
+            return {
+                'name': localStorage.getItem('name') || '',
+                'surname': localStorage.getItem('surname') || '',
+                'middle_name': localStorage.getItem('middle_name') || '',
+                'СНИЛС': localStorage.getItem('snils') || '',
+                'Полис': localStorage.getItem('insurancePolicy') || '',
+                'Паспорт': localStorage.getItem('passport') || ''
+            };
+        };
+
         const fetchFields = async () => {
             try {
                 const response = await axios.get(`${main_part_link}api/v1/services/${encodeURIComponent(serviceName)}`);
                 const data = response.data;
                 setFields(data);
-                const initialData = {
-                    name: '',
-                    surname: '',
-                    middle_name: ''
-                };
+
+                const userData = loadUserData();
+                const initialData = { ...userData };
+
                 data.forEach(({ field }) => {
-                    initialData[field.fieldData] = '';
+                    if (!initialData.hasOwnProperty(field.fieldData)) {
+                        initialData[field.fieldData] = '';
+                    }
                 });
 
                 setFormData(initialData);
@@ -51,83 +58,34 @@ const ServiceForm = () => {
         fetchFields();
     }, [serviceName]);
 
-    const validate = async () => {
-        const schemaShape = {
-            name: Yup.string().required('Имя обязательно для заполнения'),
-            surname: Yup.string().required('Фамилия обязательна для заполнения'),
-            middle_name: Yup.string().required('Отчество обязательно для заполнения')
-        };
-
-        fields.forEach(({ field }) => {
-            const fieldName = field.fieldData;
-            const normalizedFieldName = normalizeFieldName(fieldName);
-
-            schemaShape[fieldName] = serviceFormValidationRules[normalizedFieldName] ||
-                Yup.string().required(`Поле "${fieldName}" обязательно`);
-        });
-
-        const validationSchema = Yup.object().shape(schemaShape);
-
-        try {
-            await validationSchema.validate(formData, { abortEarly: false });
-            setErrors({});
-            return true;
-        } catch (err) {
-            const formErrors = err.inner.reduce((acc, curr) => {
-                acc[curr.path] = curr.message;
-                return acc;
-            }, {});
-            setErrors(formErrors);
-            return false;
-        }
-    };
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const isValid = await validate();
-        if (!isValid) return;
 
-        try {
-            // Проверяем наличие токена
-            const token = localStorage.getItem('authToken');
-            const endpoint = token ? 'register' : 'none_register';
+        const { isValid, errors: validationErrors } = await validateServiceForm(formData, fields);
+        if (!isValid) {
+            setErrors(validationErrors);
+            return;
+        }
+        setErrors({});
 
+        const result = await submitServiceForm(formData, fields, serviceName);
 
-            const submitData = { ...formData,  service_name: serviceName };
-            console.log(submitData);
-
-            const response = await axios.post(
-                `${main_part_link}api/v1/pdfs/${endpoint}`,
-                submitData,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': token ? `Bearer ${token}` : undefined
-                    },
-                    responseType: 'blob'
-                }
-            );
-
-            const fileName = response.headers['x-filename'] || 'document.pdf';
-            setPdfFileName(fileName);
-
-            const pdfBlob = new Blob([response.data], { type: 'application/pdf' });
+        if (result.success) {
+            const pdfBlob = new Blob([result.data], { type: 'application/pdf' });
             const pdfUrl = URL.createObjectURL(pdfBlob);
+            setPdfFileName(result.fileName);
             setPdfData(pdfUrl);
-
             setShowPdfModal(true);
             setStatus('PDF успешно создан!');
-
-        } catch (error) {
-            console.error('Ошибка при создании PDF:', error);
+        } else {
             setStatus('Произошла ошибка при создании PDF.');
+            console.error(result.error);
         }
     };
-
     const handleDownload = () => {
         const link = document.createElement('a');
         link.href = pdfData;
@@ -141,7 +99,6 @@ const ServiceForm = () => {
         setShowPdfModal(false);
         URL.revokeObjectURL(pdfData);
         setPdfData(null);
-
     };
 
     if (loading) {
@@ -160,55 +117,57 @@ const ServiceForm = () => {
                 {status && <Alert variant={status.includes('успешно') ? 'success' : 'danger'}>{status}</Alert>}
 
                 <Form onSubmit={handleSubmit}>
-                    {/* Фамилия */}
                     <Form.Group className="mb-3">
                         <Form.Label>Фамилия</Form.Label>
                         <Form.Control
                             type="text"
                             name="surname"
-                            value={formData.surname}
+                            value={formData["surname"] || ''}
                             placeholder="Например: Иванов"
                             onChange={handleChange}
-                            isInvalid={!!errors.surname}
+                            isInvalid={!!errors["surname"]}
                         />
                         <Form.Control.Feedback type="invalid">
-                            {errors.surname}
+                            {errors["surname"]}
                         </Form.Control.Feedback>
                     </Form.Group>
 
-                    {/* Имя */}
                     <Form.Group className="mb-3">
                         <Form.Label>Имя</Form.Label>
                         <Form.Control
                             type="text"
                             name="name"
-                            value={formData.name}
+                            value={formData["name"] || ''}
                             placeholder="Например: Иван"
                             onChange={handleChange}
-                            isInvalid={!!errors.name}
+                            isInvalid={!!errors["name"]}
                         />
                         <Form.Control.Feedback type="invalid">
-                            {errors.name}
+                            {errors["name"]}
                         </Form.Control.Feedback>
                     </Form.Group>
 
-                    {/* Отчество */}
                     <Form.Group className="mb-3">
                         <Form.Label>Отчество</Form.Label>
                         <Form.Control
                             type="text"
                             name="middle_name"
-                            value={formData.middle_name}
+                            value={formData["middle_name"] || ''}
                             placeholder="Например: Иванович"
                             onChange={handleChange}
-                            isInvalid={!!errors.middle_name}
+                            isInvalid={!!errors["middle_name"]}
                         />
                         <Form.Control.Feedback type="invalid">
-                            {errors.middle_name}
+                            {errors["middle_name"]}
                         </Form.Control.Feedback>
                     </Form.Group>
 
-                    <MyComponent fields={fields} formData={formData} handleChange={handleChange} errors={errors} />
+                    <FormFields
+                        fields={fields}
+                        formData={formData}
+                        handleChange={handleChange}
+                        errors={errors}
+                    />
 
                     <Button type="submit" className="w-100" variant="primary">
                         Отправить

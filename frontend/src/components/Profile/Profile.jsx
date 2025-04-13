@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
 import { formValidationSchema } from '../network/Validation';
-import axios from 'axios';
-import { getAuthToken } from "../network/User_api";
+import { fetchPersonalData, savePersonalData } from '../network/User_api';
 
 const Profile = () => {
     const [formData, setFormData] = useState({
@@ -16,28 +15,15 @@ const Profile = () => {
     const [loading, setLoading] = useState(true);
     const [errorLoading, setErrorLoading] = useState(null);
 
-    const main_part_link = 'http://localhost:8080/';
-
     useEffect(() => {
-        const fetchPersonalData = async () => {
+        const loadPersonalData = async () => {
             try {
-
                 const storedSnils = window.localStorage.getItem('snils');
                 const storedInsurance = window.localStorage.getItem('insurancePolicy');
                 const storedPassport = window.localStorage.getItem('passport');
 
                 if (!storedSnils || !storedInsurance || !storedPassport) {
-                    const response = await axios.get(
-                        `${main_part_link}api/v1/auth/register_personal`,
-                        {
-                            headers: {
-                                'Authorization': 'Bearer '.concat(getAuthToken())
-                            }
-                        }
-                    );
-
-                    const data = response.data;
-
+                    const data = await fetchPersonalData();
 
                     const newFormData = {
                         snils: data.snils || '',
@@ -46,30 +32,26 @@ const Profile = () => {
                     };
 
                     setFormData(newFormData);
-
-                    window.localStorage.setItem('snils', data.snils || '');
-                    window.localStorage.setItem('insurancePolicy', data.insurancePolicy || '');
-                    window.localStorage.setItem('passport', data.passport || '');
-
+                    localStorage.setItem('snils', newFormData.snils);
+                    localStorage.setItem('insurancePolicy', newFormData.insurancePolicy);
+                    localStorage.setItem('passport', newFormData.passport);
                     localStorage.setItem('userData', JSON.stringify(newFormData));
                 } else {
-
                     setFormData({
-                        snils: storedSnils || '',
-                        insurancePolicy: storedInsurance || '',
-                        passport: storedPassport || ''
+                        snils: storedSnils,
+                        insurancePolicy: storedInsurance,
+                        passport: storedPassport
                     });
                 }
 
                 setLoading(false);
             } catch (error) {
-                console.error('Ошибка при загрузке данных:', error);
                 setErrorLoading(error);
                 setLoading(false);
             }
         };
 
-        fetchPersonalData();
+        loadPersonalData();
     }, []);
 
     const handleChange = (e) => {
@@ -103,35 +85,16 @@ const Profile = () => {
         if (!isValid) return;
 
         try {
-            const cleanValue = (value) => value.replace(/[^0-9]/g, '');
-
-            const personalData = {
-                snils: formData.snils,
-                insurancePolicy: cleanValue(formData.insurancePolicy),
-                passport: cleanValue(formData.passport)
-            };
-
-            const response = await axios.post(
-                `${main_part_link}api/v1/auth/register_personal`,
-                personalData,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer '.concat(getAuthToken())
-                    }
-                }
-            );
+            const response = await savePersonalData(formData);
 
             window.localStorage.setItem('snils', formData.snils);
             window.localStorage.setItem('insurancePolicy', formData.insurancePolicy);
             window.localStorage.setItem('passport', formData.passport);
+            window.localStorage.setItem('userData', JSON.stringify(formData));
 
-            localStorage.setItem('userData', JSON.stringify(formData));
-
-            setStatus(response.data?.message || 'Данные успешно сохранены!');
+            setStatus(response.message || 'Данные успешно сохранены!');
             setTimeout(() => setStatus(''), 3000);
         } catch (error) {
-            console.error('Ошибка при сохранении данных:', error);
             setStatus(error.response?.data?.message || 'Произошла ошибка при сохранении данных.');
             setTimeout(() => setStatus(''), 3000);
         }
