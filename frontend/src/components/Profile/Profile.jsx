@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
-import { formValidationSchema } from '../network/Validation';
-import { fetchPersonalData, savePersonalData } from '../network/User_api';
+import { formValidationSchema } from '../Network/Validation';
+import { fetchPersonalData, savePersonalData } from '../Network/User_api';
 
 const Profile = () => {
     const [formData, setFormData] = useState({

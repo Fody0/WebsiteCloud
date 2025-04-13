@@ -36,7 +36,6 @@ export const loginValidationSchema = Yup.object({
 const snilsRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{3} [0-9]{2}$/;
 const passportRegex = /^[0-9]{4} [0-9]{6}$/;
 const insurancePolicyRegex = /^[0-9]{16}$/;
-const fioRegex = /^[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+$/;
 const bloodGroupRegex = /^(I|II|III|IV)[+-]$|^[ABO][+-]$/i;
 
 export const normalizeFieldName = (name) => {

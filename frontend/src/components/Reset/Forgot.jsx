@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { forgotPassword } from '../network/User_api';
-import '../styles/index.css';
+import { forgotPassword } from '../Network/User_api';
+import '../Styles/index.css';
 import { Form, Button, Container, Alert } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
 

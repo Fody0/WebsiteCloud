@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { loginUser, initialLoginData } from '../network/User_api';
-import { loginValidationSchema } from '../network/Validation';
+import { loginUser, initialLoginData } from '../Network/User_api';
+import { loginValidationSchema } from '../Network/Validation';
 import { useNavigate, Link } from 'react-router-dom';
-import '../styles/index.css';
+import '../Styles/index.css';
 import { Form, Button, Container } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
 

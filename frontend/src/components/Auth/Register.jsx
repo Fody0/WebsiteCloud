@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {useNavigate} from "react-router-dom";
-import { registerUser, initialRegisterData } from '../network/User_api';
-import {registerValidationSchema} from "../network/Validation";
+import { registerUser, initialRegisterData } from '../Network/User_api';
+import {registerValidationSchema} from "../Network/Validation";
 import { Form, Button, Container } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
 

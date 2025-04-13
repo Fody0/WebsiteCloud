@@ -1,6 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import axios from "axios";
-import {Form} from "react-bootstrap";
 import {PassportInput, SnilsInput, PolicyInput, GenericInput} from './InputComponents';
 
 const FormFields = (props) => {

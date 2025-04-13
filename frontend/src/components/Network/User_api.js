@@ -114,16 +114,7 @@ export const logoutUser = async () => {
         throw error;
     }
 };
-export const fetchServices = async () => {
-    try {
-        const response = await axios.get(`${main_part_link}api/v1/services`);
-        return response.data;
-    } catch (error) {
-        console.error('Ошибка при получении списка услуг:', error);
 
-        throw error;
-    }
-};
 export const fetchPersonalData = async () => {
     try {
         const response = await axios.get(
@@ -134,12 +125,27 @@ export const fetchPersonalData = async () => {
                 }
             }
         );
+        response.data.passport = parsePassport(response.data.passport);
+
         return response.data;
     } catch (error) {
         console.error('Ошибка при получении персональных данных:', error);
         throw error;
     }
 };
+const parsePassport = (passport) => {
+    let parsed_passport = "";
+
+    for (let i = 0; i < 4; i++) {
+        parsed_passport += passport[i];
+    }
+    parsed_passport += " ";
+
+    for (let i = 4; i < 10; i++) {
+        parsed_passport += passport[i];
+    }
+    return parsed_passport;
+}
 
 export const savePersonalData = async (formData) => {
     try {
@@ -169,43 +175,3 @@ export const savePersonalData = async (formData) => {
     }
 };
 
-export const submitServiceForm = async (formData, fields, serviceName) => {
-    try {
-        const token = localStorage.getItem('authToken');
-        const endpoint = token ? 'register' : 'none_register';
-        const renamedData = {
-            'Фамилия': formData.surname,
-            'Имя': formData.name,
-            'Отчество': formData.middle_name,
-            ...formData,
-            service_name: serviceName
-        };
-
-        delete renamedData.surname;
-        delete renamedData.name;
-        delete renamedData.middle_name;
-
-        const response = await axios.post(
-            `${main_part_link}api/v1/pdfs/${endpoint}`,
-            renamedData,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token ? `Bearer ${token}` : undefined
-                },
-                responseType: 'blob'
-            }
-        );
-        return {
-            success: true,
-            data: response.data,
-            fileName: response.headers['x-filename'] || 'document.pdf'
-        };
-    } catch (error) {
-        console.error('Ошибка при отправке формы:', error);
-        return {
-            success: false,
-            error
-        };
-    }
-};

@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { Form, Button, Container, Alert, Modal } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
 import axios from "axios";
-import { validateServiceForm } from "../network/Validation";
+import { validateServiceForm } from "../Network/Validation";
 import FormFields from "./FormFields";
-import { submitServiceForm } from "../network/User_api";
+import { submitServiceForm } from "../Network/Service_api";
 
 const ServiceForm = () => {
     const { serviceName } = useParams();

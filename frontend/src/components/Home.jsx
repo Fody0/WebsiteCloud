@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap';
 import { Navibar } from "./Navbar/Navibar";
-import { fetchServices } from "./network/User_api";
+import { fetchServices } from "./Network/Service_api";
 
 const Home = () => {
     const [services, setServices] = useState([]);
