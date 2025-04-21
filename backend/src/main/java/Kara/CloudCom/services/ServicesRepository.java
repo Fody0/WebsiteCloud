@@ -9,6 +9,8 @@ import java.util.Optional;
 public interface ServicesRepository extends JpaRepository<Services, Integer> {
     Optional<Services> findByName(String name);
 
+//    Optional<Services> findByServiceName(String serviceName);
+
     @Query("SELECT s FROM Services s LEFT JOIN FETCH s.serviceFields WHERE s.name = :name")
     Optional<Services> findByNameWithFields(@Param("name") String name);
 }

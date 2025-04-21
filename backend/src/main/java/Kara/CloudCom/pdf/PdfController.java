@@ -21,7 +21,8 @@ public class PdfController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<byte[]> createPdf(@RequestBody Map<String, Object> dynamicData,
+    public ResponseEntity<byte[]> createPdf(@RequestBody Map<String,
+                                                        Object> dynamicData,
                                             HttpServletRequest httpRequest) throws IOException {
         System.out.println("PDF CREATED");
         PdfDocument pdf = pdfStorageService.storePdf(dynamicData, httpRequest);
@@ -40,7 +41,6 @@ public class PdfController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdf.getData());
     }
-
 
 //    @GetMapping("/{id}")
 //    public ResponseEntity<byte[]> getPdf(@PathVariable Long id) {
