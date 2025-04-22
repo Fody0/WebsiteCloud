@@ -53,7 +53,7 @@ public class PdfStorageService {
 //                dynamicData.get("service_name") + "-" + ".pdf";
 //
 
-        String fileName = dynamicData.get("name").toString() + "-" +
+        String fileName = dynamicData.get("Имя").toString() + "-" + dynamicData.get("Фамилия") + "-" +
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm"))+
                 ".pdf";
 
@@ -89,7 +89,10 @@ public class PdfStorageService {
 
 
         byte[] pdfData = pdfService.generatePdf(dynamicData);
-        var fileName = UUID.randomUUID().toString() + ".pdf";
+//        var fileName = UUID.randomUUID().toString() + ".pdf";
+        String fileName = dynamicData.get("Имя").toString() + "-" + dynamicData.get("Фамилия") + "-" +
+                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm"))+
+                ".pdf";
 
 
 
