@@ -36,7 +36,6 @@ export const loginValidationSchema = Yup.object({
 const snilsRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{3} [0-9]{2}$/;
 const passportRegex = /^[0-9]{4} [0-9]{6}$/;
 const insurancePolicyRegex = /^[0-9]{16}$/;
-const fioRegex = /^[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+$/;
 const bloodGroupRegex = /^(I|II|III|IV)[+-]$|^[ABO][+-]$/i;
 
 export const normalizeFieldName = (name) => {
@@ -50,9 +49,6 @@ export const normalizeFieldName = (name) => {
 };
 
 export const formValidationSchema = Yup.object({
-    name: Yup.string()
-        .matches(/^[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+$/, 'ФИО должно быть в формате "Иванов Иван Иванович"')
-        .required('ФИО обязательно'),
 
     snils: Yup.string()
         .matches(snilsRegex, 'СНИЛС должен быть в формате 123-456-789 00')
@@ -84,4 +80,32 @@ export const serviceFormValidationRules = {
         .matches(bloodGroupRegex, 'Группа крови должна быть в формате: A+, B-, AB+, O-, I+, II-, III+, IV-')
         .required('Группа крови обязательна')
 
+};
+export const validateServiceForm = async (formData, fields) => {
+    const schemaShape = {
+        name: Yup.string().required('Имя обязательно для заполнения'),
+        surname: Yup.string().required('Фамилия обязательна для заполнения'),
+        middle_name: Yup.string().required('Отчество обязательно для заполнения')
+    };
+
+    fields.forEach(({ field }) => {
+        const fieldName = field.fieldData;
+        const normalizedFieldName = normalizeFieldName(fieldName);
+
+        schemaShape[fieldName] = serviceFormValidationRules[normalizedFieldName] ||
+            Yup.string().required(`Поле "${fieldName}" обязательно`);
+    });
+
+    const validationSchema = Yup.object().shape(schemaShape);
+
+    try {
+        await validationSchema.validate(formData, { abortEarly: false });
+        return { isValid: true, errors: {} };
+    } catch (err) {
+        const formErrors = err.inner.reduce((acc, curr) => {
+            acc[curr.path] = curr.message;
+            return acc;
+        }, {});
+        return { isValid: false, errors: formErrors };
+    }
 };
