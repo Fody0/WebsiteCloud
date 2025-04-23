@@ -1,11 +1,14 @@
 package Kara.CloudCom.pdf;
 
+import Kara.CloudCom.services.Services;
 import Kara.CloudCom.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "_pdf_document")
@@ -25,14 +28,20 @@ public class PdfDocument {
     @Lob
     private byte[] data;
 
+    @Getter
+    @Setter
+    @Column(name = "creation_date", nullable = false)
+    private LocalDateTime creationDate;
+
     @ManyToOne
     @Setter
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
 
-//
-//    public void setFileName(String fileName) {}
-//    public void setData(byte[] data) {}
-//    public void setContentType(String contentType) {}
+    @ManyToOne
+    @Setter
+    @JoinColumn(name = "service_id")
+    @JsonBackReference
+    private Services services;
 }
