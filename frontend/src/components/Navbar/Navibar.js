@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Nav, Navbar } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
-import { getAuthToken, logoutUser } from "../network/User_api";
+import {getAuthToken, logoutUser, setAuthToken} from "../Network/User_api";
 import logo from '../../image/cloudcom.png';
 
 export function Navibar() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userName, setUserName] = useState('');
     const [userSurnameInitial, setUserSurnameInitial] = useState('');
-    const navigate = useNavigate();
+
 
     useEffect(() => {
         const jwt = getAuthToken();
         const name = window.localStorage.getItem('name');
         const surname = window.localStorage.getItem('surname');
-        const middle_name = window.localStorage.getItem('middle_name');
+
 
 
         if (jwt && name && surname) {
@@ -34,6 +34,7 @@ export function Navibar() {
             setIsAuthenticated(false);
             setUserName('');
             setUserSurnameInitial('');
+            setAuthToken('');
 
         } catch (error) {
             console.error('Ошибка при выходе из системы:', error);

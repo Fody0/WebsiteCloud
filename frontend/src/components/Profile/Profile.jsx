@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
-import { formValidationSchema } from '../network/Validation';
+import { formValidationSchema } from '../Network/Validation';
+import { fetchPersonalData, savePersonalData } from '../Network/User_api';
 
 const Profile = () => {
     const [formData, setFormData] = useState({
-        name: '',
-        middle_name: '',
         snils: '',
         insurancePolicy: '',
         passport: ''
@@ -17,22 +16,42 @@ const Profile = () => {
     const [errorLoading, setErrorLoading] = useState(null);
 
     useEffect(() => {
-        const name = window.localStorage.getItem('name');
-        const surname = window.localStorage.getItem('surname');
-        const middleName = window.localStorage.getItem('middle_name'); // Получаем отчество
+        const loadPersonalData = async () => {
+            try {
+                const storedSnils = window.localStorage.getItem('snils');
+                const storedInsurance = window.localStorage.getItem('insurancePolicy');
+                const storedPassport = window.localStorage.getItem('passport');
 
-        if (name && surname) {
-            setFormData({
-                ...formData,
-                name: `${surname} ${name}${middleName ? ' ' + middleName : ''}`,
-                middle_name: middleName || '',
-                snils: window.localStorage.getItem('snils') || '',
-                insurancePolicy: window.localStorage.getItem('insurancePolicy') || '',
-                passport: window.localStorage.getItem('passport') || ''
-            });
-        }
+                if (!storedSnils || !storedInsurance || !storedPassport) {
+                    const data = await fetchPersonalData();
 
-        setLoading(false);
+                    const newFormData = {
+                        snils: data.snils || '',
+                        insurancePolicy: data.insurancePolicy || '',
+                        passport: data.passport || ''
+                    };
+
+                    setFormData(newFormData);
+                    localStorage.setItem('snils', newFormData.snils);
+                    localStorage.setItem('insurancePolicy', newFormData.insurancePolicy);
+                    localStorage.setItem('passport', newFormData.passport);
+                    localStorage.setItem('userData', JSON.stringify(newFormData));
+                } else {
+                    setFormData({
+                        snils: storedSnils,
+                        insurancePolicy: storedInsurance,
+                        passport: storedPassport
+                    });
+                }
+
+                setLoading(false);
+            } catch (error) {
+                setErrorLoading(error);
+                setLoading(false);
+            }
+        };
+
+        loadPersonalData();
     }, []);
 
     const handleChange = (e) => {
@@ -66,35 +85,20 @@ const Profile = () => {
         if (!isValid) return;
 
         try {
+            const response = await savePersonalData(formData);
 
-            const [lastName, firstName, ...rest] = formData.name.split(' ');
-            const middleName = rest.join(' ');
-
-
-            window.localStorage.setItem('name', firstName);
-            window.localStorage.setItem('surname', lastName);
-            window.localStorage.setItem('middle_name', formData.middle_name || middleName || '');
             window.localStorage.setItem('snils', formData.snils);
             window.localStorage.setItem('insurancePolicy', formData.insurancePolicy);
             window.localStorage.setItem('passport', formData.passport);
+            window.localStorage.setItem('userData', JSON.stringify(formData));
 
-            // Сохраняем полные данные в одном объекте
-            localStorage.setItem('userData', JSON.stringify({
-                name: `${lastName} ${firstName} ${formData.middle_name || middleName || ''}`.trim(),
-                middle_name: formData.middle_name || middleName || '',
-                snils: formData.snils,
-                insurancePolicy: formData.insurancePolicy,
-                passport: formData.passport
-            }));
-
-            setStatus('Данные успешно сохранены!');
+            setStatus(response.message || 'Данные успешно сохранены!');
             setTimeout(() => setStatus(''), 3000);
         } catch (error) {
-            setStatus('Произошла ошибка при сохранении данных.');
+            setStatus(error.response?.data?.message || 'Произошла ошибка при сохранении данных.');
             setTimeout(() => setStatus(''), 3000);
         }
     };
-
 
     if (loading) {
         return (
@@ -121,22 +125,6 @@ const Profile = () => {
                 {status && <Alert variant={status.includes('успешно') ? 'success' : 'danger'}>{status}</Alert>}
 
                 <Form onSubmit={handleSubmit}>
-
-                  {/*  <Form.Group className="mb-3">
-                        <Form.Label>ФИО</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="name"
-                            value={formData.name}
-                            placeholder="Например: Иванов Иван Иванович"
-                            onChange={handleChange}
-                            isInvalid={!!errors.name}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.name}
-                        </Form.Control.Feedback>
-                    </Form.Group>*/}
-
                     <Form.Group className="mb-3">
                         <Form.Label>СНИЛС</Form.Label>
                         <Form.Control
@@ -151,7 +139,6 @@ const Profile = () => {
                             {errors.snils}
                         </Form.Control.Feedback>
                     </Form.Group>
-
 
                     <Form.Group className="mb-3">
                         <Form.Label>Страховой полис</Form.Label>
@@ -168,7 +155,6 @@ const Profile = () => {
                         </Form.Control.Feedback>
                     </Form.Group>
 
-
                     <Form.Group className="mb-3">
                         <Form.Label>Паспорт (серия и номер)</Form.Label>
                         <Form.Control
@@ -183,7 +169,6 @@ const Profile = () => {
                             {errors.passport}
                         </Form.Control.Feedback>
                     </Form.Group>
-
 
                     <Button variant="primary" type="submit" className="w-100">
                         Сохранить
