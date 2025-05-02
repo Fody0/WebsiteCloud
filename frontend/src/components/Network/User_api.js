@@ -125,28 +125,37 @@ export const fetchPersonalData = async () => {
                 }
             }
         );
-        response.data.passport = parsePassport(response.data.passport);
 
-        return response.data;
+        const data = typeof response.data === 'object' ? response.data : {};
+        if (data.passport) {
+            data.passport = parsePassport(data.passport);
+        } else {
+            data.passport = "";
+        }
+
+        return data;
     } catch (error) {
         console.error('Ошибка при получении персональных данных:', error);
         throw error;
     }
 };
 const parsePassport = (passport) => {
+    if (!passport) return "";
+
+    passport = passport.toString();
     let parsed_passport = "";
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 4 && i < passport.length; i++) {
         parsed_passport += passport[i];
     }
     parsed_passport += " ";
 
-    for (let i = 4; i < 10; i++) {
+    for (let i = 4; i < 10 && i < passport.length; i++) {
         parsed_passport += passport[i];
     }
+
     return parsed_passport;
 }
-
 export const savePersonalData = async (formData) => {
     try {
         const cleanValue = (value) => value.replace(/[^0-9]/g, '');
