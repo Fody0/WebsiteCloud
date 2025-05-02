@@ -63,12 +63,13 @@ const Register = () => {
         switch (passwordStrength.level) {
             case 0:
             case 1:
-                return 'danger'; // слабый
             case 2:
+                return 'danger'; // слабый
             case 3:
-                return 'warning'; // средний
             case 4:
+                return 'warning'; // средний
             case 5:
+            case 6:
                 return 'success'; // сильный
             default:
                 return 'secondary';
@@ -76,12 +77,12 @@ const Register = () => {
     };
 
 
+
     const getStrengthWidth = () => {
-        if (!formData.password) return '0%';
-        if (!passwordStrength.valid) return '33%';
-        if (passwordStrength.level < 5) return '66%';
-        return '100%';
+        const percent = Math.min((passwordStrength.level / 6) * 100, 100);
+        return `${percent}%`;
     };
+
     return (
         <>
             <Navibar />

@@ -12,8 +12,6 @@ export const checkPasswordStrength = (password) => {
     const isVeryLong = password.length >= 14;
 
     let strength = 0;
-    let message = '';
-    let valid = false;
 
     if (password.length < 8) return { level: 0, message: 'Слишком короткий', valid: false };
 
@@ -24,16 +22,11 @@ export const checkPasswordStrength = (password) => {
     if (isLongEnough) strength++;
     if (isVeryLong) strength++;
 
-    if (strength < 4) {
-        message = 'Слабый';
-        valid = false;
-    } else if (strength < 6) {
-        message = 'Средний';
-        valid = hasLowercase && hasUppercase && hasNumber;
-    } else {
-        message = 'Сильный';
-        valid = hasLowercase && hasUppercase && hasNumber && hasSpecialChar;
-    }
+    let message = 'Слабый';
+    if (strength >= 6) message = 'Сильный';
+    else if (strength >= 4) message = 'Средний';
+
+    const valid = strength >= 4; // средний и выше
 
     return { level: strength, message, valid };
 };
@@ -55,6 +48,7 @@ export const registerValidationSchema = Yup.object({
             const result = checkPasswordStrength(value || '');
             return result.valid;
         }),
+
     confirmPassword: Yup.string()
         .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
         .required('Подтверждение пароля обязательно')
