@@ -30,7 +30,7 @@ public class PdfDocument {
 
     @Getter
     @Setter
-    @Column(name = "creation_date", nullable = false)
+    @Column(name = "creation_date", nullable = true)
     private LocalDateTime creationDate;
 
     @ManyToOne
