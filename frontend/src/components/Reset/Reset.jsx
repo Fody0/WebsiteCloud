@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/index.css';
+import '../Styles/index.css';
 import { Form, Button, Container } from 'react-bootstrap';
 
 const Reset = () => {
