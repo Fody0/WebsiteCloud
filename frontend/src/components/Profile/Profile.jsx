@@ -95,9 +95,15 @@ const Profile = () => {
             setStatus(response.message || 'Данные успешно сохранены!');
             setTimeout(() => setStatus(''), 3000);
         } catch (error) {
-            setStatus(error.response?.data?.message || 'Произошла ошибка при сохранении данных.');
+            const serverMessage = error.response?.data?.message;
+            if (error.response?.status === 403) {
+                setStatus('Данные уже существуют или доступ запрещён.');
+            } else {
+                setStatus(serverMessage || 'Произошла ошибка при сохранении данных.');
+            }
             setTimeout(() => setStatus(''), 3000);
         }
+
     };
 
     if (loading) {
@@ -109,12 +115,23 @@ const Profile = () => {
     }
 
     if (errorLoading) {
+        let message = 'Не удалось загрузить данные.';
+
+        if (errorLoading.message === 'Network Error') {
+            message = 'Сервер недоступен. Возможно, он выключен или возникли проблемы с соединением.';
+        } else if (errorLoading.response) {
+            message = `Ошибка ${errorLoading.response.status}: ${errorLoading.response.statusText}`;
+        }
+
         return (
             <Container className="mt-5 pt-5">
-                <h2 className="text-center mb-4">Произошла ошибка: {errorLoading.message}</h2>
+                <h2 className="text-center mb-4 text-danger">Произошла ошибка</h2>
+                <p className="text-center">{message}</p>
             </Container>
         );
     }
+
+
 
     return (
         <>
