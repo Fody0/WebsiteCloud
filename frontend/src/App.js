@@ -8,7 +8,6 @@ import Error from './components/Pages/Error';
 import About from './components/Pages/About';
 import Forgot from "./components/Reset/Forgot";
 import Reset from "./components/Reset/Reset";
-
 import ServiceForm from "./components/Services/ServiceForm";
 import Profile from "./components/Profile/Profile";
 import PrivateRoute from "./components/Profile/PrivateRoute";

@@ -4,6 +4,7 @@ import { registerUser, initialRegisterData } from '../Network/User_api';
 import { registerValidationSchema, checkPasswordStrength } from "../Network/Validation";
 import { Form, Button, Container } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
+import { Alert } from 'react-bootstrap';
 
 const Register = () => {
     const [formData, setFormData] = useState(initialRegisterData);
@@ -52,8 +53,17 @@ const Register = () => {
             console.log('Регистрация успешна:', data);
             navigate('/');
         } catch (error) {
-            console.error('Ошибка при регистрации:', error);
-            setErrors({ submit: error.response?.data?.message || 'Ошибка при регистрации' });
+            let message = 'Ошибка при регистрации';
+            if (error.response) {
+                if (error.response.status === 403) {
+                    message = 'Пользователь с таким email уже существует.';
+                } else if (error.response.status === 400) {
+                    message = 'Некорректные данные.';
+                } else if (error.response.status === 500) {
+                    message = 'Внутренняя ошибка сервера.';
+                }
+            }
+            setErrors({ submit: message });
         }
     };
 
@@ -88,7 +98,13 @@ const Register = () => {
             <Navibar />
             <Container className="mt-5" style={{ maxWidth: '400px' }}>
                 <h2 className="text-center mb-4">Регистрация</h2>
-                {errors.submit}
+                {errors.submit && (
+                    <Alert variant="danger" className="text-center">
+                        {errors.submit}
+                    </Alert>
+                )}
+
+
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
                         <Form.Control

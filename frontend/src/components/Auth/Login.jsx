@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import '../Styles/index.css';
 import { Form, Button, Container } from 'react-bootstrap';
 import { Navibar } from "../Navbar/Navibar";
-
+import { Alert } from 'react-bootstrap';
 const Login = () => {
    <div>
        <Navibar/>
@@ -13,6 +13,7 @@ const Login = () => {
     const [formData, setFormData] = useState(initialLoginData);
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
+    const [submitError, setSubmitError] = useState('');
 
     const validate = async () => {
         try {
@@ -43,6 +44,11 @@ const Login = () => {
                 navigate('/');
             } catch (error) {
                 console.error('Ошибка при входе:', error);
+                let message = 'Ошибка при входе.';
+                if (error.response?.status === 403) {
+                    message = 'Неверный email или пароль.';
+                }
+                setSubmitError(message);
             }
         }
     };
@@ -53,6 +59,12 @@ const Login = () => {
                 <Navibar />
         <Container className="mt-5" style={{ maxWidth: '400px' }}>
             <h2 className="text-center mb-4">Вход</h2>
+            {submitError && (
+                <Alert variant="danger" className="text-center">
+                    {submitError}
+                </Alert>
+            )}
+
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                     <Form.Control
